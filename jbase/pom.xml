@@ -7,6 +7,7 @@
 	<groupId>br.jus.tre_pa.jbase</groupId>
 	<artifactId>jbase</artifactId>
 	<packaging>jar</packaging>
+	<version>1.0</version>
 
 	<name></name>
 	<description></description>
@@ -86,5 +87,4 @@
 		</snapshotRepository>
 	</distributionManagement>
 
-	<version>1.0</version>
 </project>
