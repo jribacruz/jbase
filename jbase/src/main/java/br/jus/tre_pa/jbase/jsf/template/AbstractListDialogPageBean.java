@@ -1,7 +1,11 @@
 package br.jus.tre_pa.jbase.jsf.template;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 
 import javax.inject.Inject;
 
@@ -26,6 +30,8 @@ public abstract class AbstractListDialogPageBean<T, I> implements Serializable {
 
 	private Class<T> beanClass;
 
+	private Map<I, Boolean> selection = new HashMap<I, Boolean>();
+
 	public abstract String load(I id);
 
 	protected abstract List<T> handleResultList();
@@ -33,6 +39,11 @@ public abstract class AbstractListDialogPageBean<T, I> implements Serializable {
 	@Hide
 	public void cancel() {
 		this.clear();
+	}
+
+	@Hide
+	public String done() {
+		return null;
 	}
 
 	public void clear() {
@@ -53,6 +64,30 @@ public abstract class AbstractListDialogPageBean<T, I> implements Serializable {
 		}
 
 		return this.beanClass;
+	}
+
+	public Map<I, Boolean> getSelection() {
+		return selection;
+	}
+
+	public void setSelection(Map<I, Boolean> selection) {
+		this.selection = selection;
+	}
+
+	public void clearSelection() {
+		this.selection = new HashMap<I, Boolean>();
+	}
+
+	public List<I> getSelectedList() {
+		List<I> selectedList = new ArrayList<I>();
+		Iterator<I> iter = getSelection().keySet().iterator();
+		while (iter.hasNext()) {
+			I id = iter.next();
+			if (getSelection().get(id)) {
+				selectedList.add(id);
+			}
+		}
+		return selectedList;
 	}
 
 	protected void setBean(T bean) {

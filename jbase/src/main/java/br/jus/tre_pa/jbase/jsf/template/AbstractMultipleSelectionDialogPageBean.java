@@ -10,6 +10,7 @@ import javax.inject.Inject;
 import org.primefaces.model.DualListModel;
 import org.slf4j.Logger;
 
+import br.jus.tre_pa.jbase.jsf.workflow.annotation.Hide;
 import br.jus.tre_pa.jbase.jsf.workflow.annotation.UpdateBody;
 
 /**
@@ -84,17 +85,11 @@ public abstract class AbstractMultipleSelectionDialogPageBean<T, R> implements S
 	 * 
 	 * @return
 	 */
+	@Hide
 	public String done() {
 		removeDeselectedsFromBean();
 		addSelectedsToBean();
 		return null;
-	}
-
-	/**
-	 * 
-	 */
-	public void cancel() {
-		clear();
 	}
 
 	protected void clear() {

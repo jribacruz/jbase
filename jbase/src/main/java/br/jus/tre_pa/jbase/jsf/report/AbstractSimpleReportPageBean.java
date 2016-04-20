@@ -2,7 +2,7 @@ package br.jus.tre_pa.jbase.jsf.report;
 
 import java.io.Serializable;
 
-public abstract class AbstractReportPageBean implements Serializable {
+public abstract class AbstractSimpleReportPageBean implements Serializable {
 
 	/**
 	 * 
