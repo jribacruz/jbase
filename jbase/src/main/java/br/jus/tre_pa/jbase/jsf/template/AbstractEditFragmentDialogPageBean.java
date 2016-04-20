@@ -13,7 +13,7 @@ import br.jus.tre_pa.jbase.jsf.workflow.base.EventTargetBean;
  *
  * @param <T>
  */
-public abstract class AbstractEditFragmentDialogPageBean<T, L> implements Serializable, EventTargetBean<T> {
+public abstract class AbstractEditFragmentDialogPageBean<T, I> implements Serializable, EventTargetBean<T> {
 
 	/**
 	 * 
@@ -24,7 +24,7 @@ public abstract class AbstractEditFragmentDialogPageBean<T, L> implements Serial
 
 	private Class<T> beanClass;
 
-	public abstract String load(L id);
+	public abstract String load(I id);
 
 	@Hide
 	public String cancel() {
