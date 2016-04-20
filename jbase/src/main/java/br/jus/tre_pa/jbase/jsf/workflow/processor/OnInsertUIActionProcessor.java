@@ -2,13 +2,13 @@ package br.jus.tre_pa.jbase.jsf.workflow.processor;
 
 import javax.inject.Inject;
 
-import br.jus.tre_pa.jbase.jsf.workflow.annotation.EventPattern;
-import br.jus.tre_pa.jbase.jsf.workflow.base.EventProcessor;
+import br.jus.tre_pa.jbase.jsf.workflow.annotation.UIActionPattern;
+import br.jus.tre_pa.jbase.jsf.workflow.base.UIActionProcessor;
 import br.jus.tre_pa.jbase.jsf.workflow.context.EventContext;
 import br.jus.tre_pa.jbase.jsf.workflow.context.UIService;
 
-@EventPattern("cancel")
-public class CancelEventProcessor extends EventProcessor {
+@UIActionPattern("onInsert([\\w\\d]+)")
+public class OnInsertUIActionProcessor extends UIActionProcessor {
 
 	/**
 	 * 
@@ -19,7 +19,7 @@ public class CancelEventProcessor extends EventProcessor {
 	private UIService service;
 
 	public void process(EventContext context) {
-		service.hide(context.getWvar());
+		service.update(context.getFormId(), context.getBodyId());
 	}
 
 }

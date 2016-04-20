@@ -2,13 +2,13 @@ package br.jus.tre_pa.jbase.jsf.workflow.processor;
 
 import javax.inject.Inject;
 
-import br.jus.tre_pa.jbase.jsf.workflow.annotation.EventPattern;
-import br.jus.tre_pa.jbase.jsf.workflow.base.EventProcessor;
+import br.jus.tre_pa.jbase.jsf.workflow.annotation.UIActionPattern;
+import br.jus.tre_pa.jbase.jsf.workflow.base.UIActionProcessor;
 import br.jus.tre_pa.jbase.jsf.workflow.context.EventContext;
 import br.jus.tre_pa.jbase.jsf.workflow.context.UIService;
 
-@EventPattern("update")
-public class UpdateEventProcessor extends EventProcessor {
+@UIActionPattern("cancel")
+public class CancelUIActionProcessor extends UIActionProcessor {
 
 	/**
 	 * 
@@ -20,6 +20,6 @@ public class UpdateEventProcessor extends EventProcessor {
 
 	public void process(EventContext context) {
 		service.hide(context.getWvar());
-		service.showGrowl();
 	}
+
 }

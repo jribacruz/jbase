@@ -115,4 +115,34 @@ public class UIServiceImpl implements UIService {
 		this.update("growl_id");
 	}
 
+	@Override
+	public void updateBody(Class<?> forClass) {
+		
+	}
+
+	@Override
+	public void updateFooter(Class<?> forClass) {
+		
+	}
+
+	@Override
+	public void updateHeader(Class<?> forClass) {
+		
+	}
+
+	@Override
+	public void updateRegion(Class<?> forClass, String id) {
+		
+	}
+
+	@Override
+	public void show(Class<?> forClass) {
+		
+	}
+
+	@Override
+	public void hide(Class<?> forClass) {
+		
+	}
+
 }

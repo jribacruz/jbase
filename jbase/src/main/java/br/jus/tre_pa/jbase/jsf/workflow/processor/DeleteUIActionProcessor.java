@@ -2,13 +2,13 @@ package br.jus.tre_pa.jbase.jsf.workflow.processor;
 
 import javax.inject.Inject;
 
-import br.jus.tre_pa.jbase.jsf.workflow.annotation.EventPattern;
-import br.jus.tre_pa.jbase.jsf.workflow.base.EventProcessor;
+import br.jus.tre_pa.jbase.jsf.workflow.annotation.UIActionPattern;
+import br.jus.tre_pa.jbase.jsf.workflow.base.UIActionProcessor;
 import br.jus.tre_pa.jbase.jsf.workflow.context.EventContext;
 import br.jus.tre_pa.jbase.jsf.workflow.context.UIService;
 
-@EventPattern("done")
-public class DoneEventProcessor extends EventProcessor {
+@UIActionPattern("delete")
+public class DeleteUIActionProcessor extends UIActionProcessor {
 
 	/**
 	 * 
@@ -19,7 +19,8 @@ public class DoneEventProcessor extends EventProcessor {
 	private UIService service;
 
 	public void process(EventContext context) {
-		service.hide(context.getWvar());
+		service.update(context.getFormId(), context.getBodyId());
+		service.showGrowl();
 	}
 
 }

@@ -22,9 +22,9 @@ import org.slf4j.LoggerFactory;
 
 import br.gov.frameworkdemoiselle.message.MessageContext;
 import br.gov.frameworkdemoiselle.util.Beans;
-import br.jus.tre_pa.jbase.jsf.workflow.annotation.EventPattern;
+import br.jus.tre_pa.jbase.jsf.workflow.annotation.UIActionPattern;
 import br.jus.tre_pa.jbase.jsf.workflow.annotation.UIAction;
-import br.jus.tre_pa.jbase.jsf.workflow.base.EventProcessor;
+import br.jus.tre_pa.jbase.jsf.workflow.base.UIActionProcessor;
 import br.jus.tre_pa.jbase.jsf.workflow.base.EventTargetBean;
 import br.jus.tre_pa.jbase.jsf.workflow.context.EventContext;
 import br.jus.tre_pa.jbase.jsf.workflow.context.UIService;
@@ -32,7 +32,7 @@ import br.jus.tre_pa.jbase.jsf.workflow.implementation.EventContextImpl;
 
 @Interceptor
 @UIAction
-public class EventInterceptor implements Serializable {
+public class UIActionInterceptor implements Serializable {
 
 	/**
 	 * 
@@ -44,7 +44,7 @@ public class EventInterceptor implements Serializable {
 	 */
 	@Inject
 	@Any
-	private Instance<EventProcessor> eventProcessors;
+	private Instance<UIActionProcessor> actionProcessors;
 
 	@SuppressWarnings("rawtypes")
 	@Inject
@@ -59,7 +59,7 @@ public class EventInterceptor implements Serializable {
 
 	private Map<String, String> context;
 
-	private Logger log = LoggerFactory.getLogger(EventInterceptor.class);
+	private Logger log = LoggerFactory.getLogger(UIActionInterceptor.class);
 
 	@AroundInvoke
 	public Object invoke(InvocationContext ic) throws Exception {
@@ -75,9 +75,9 @@ public class EventInterceptor implements Serializable {
 			if (!FacesContext.getCurrentInstance().isValidationFailed()) {
 				EventContext eventContext = createEventContext(ic);
 				log.debug(eventContext.toString());
-				Iterator<EventProcessor> it = eventProcessors.iterator();
+				Iterator<UIActionProcessor> it = actionProcessors.iterator();
 				while (it.hasNext()) {
-					EventProcessor processor = it.next();
+					UIActionProcessor processor = it.next();
 					if (executeProcessor(eventContext, processor)) {
 						break;
 					}
@@ -98,9 +98,9 @@ public class EventInterceptor implements Serializable {
 		return ret;
 	}
 
-	private boolean executeProcessor(EventContext eventContext, EventProcessor processor) {
-		if (processor.getClass().isAnnotationPresent(EventPattern.class)) {
-			Pattern pattern = Pattern.compile(processor.getClass().getAnnotation(EventPattern.class).value());
+	private boolean executeProcessor(EventContext eventContext, UIActionProcessor processor) {
+		if (processor.getClass().isAnnotationPresent(UIActionPattern.class)) {
+			Pattern pattern = Pattern.compile(processor.getClass().getAnnotation(UIActionPattern.class).value());
 			/*
 			 * Verifica o padrão entre o nome do método interceptado e o
 			 * EventPattern do anotado na classe do processador.

@@ -2,13 +2,13 @@ package br.jus.tre_pa.jbase.jsf.workflow.processor;
 
 import javax.inject.Inject;
 
-import br.jus.tre_pa.jbase.jsf.workflow.annotation.EventPattern;
-import br.jus.tre_pa.jbase.jsf.workflow.base.EventProcessor;
+import br.jus.tre_pa.jbase.jsf.workflow.annotation.UIActionPattern;
+import br.jus.tre_pa.jbase.jsf.workflow.base.UIActionProcessor;
 import br.jus.tre_pa.jbase.jsf.workflow.context.EventContext;
 import br.jus.tre_pa.jbase.jsf.workflow.context.UIService;
 
-@EventPattern("load")
-public class LoadEventProcessor extends EventProcessor {
+@UIActionPattern("refresh")
+public class RefreshUIActionProcessor extends UIActionProcessor {
 
 	/**
 	 * 
@@ -19,10 +19,7 @@ public class LoadEventProcessor extends EventProcessor {
 	private UIService service;
 
 	public void process(EventContext context) {
-		service.update(context.getFormId(), context.getHeaderId());
 		service.update(context.getFormId(), context.getBodyId());
-		service.update(context.getFormId(), context.getFooterId());
-		service.show(context.getWvar());
 	}
 
 }

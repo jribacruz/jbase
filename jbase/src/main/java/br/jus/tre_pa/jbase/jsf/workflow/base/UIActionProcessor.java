@@ -5,10 +5,10 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import br.gov.frameworkdemoiselle.util.Strings;
-import br.jus.tre_pa.jbase.jsf.workflow.annotation.EventPattern;
+import br.jus.tre_pa.jbase.jsf.workflow.annotation.UIActionPattern;
 import br.jus.tre_pa.jbase.jsf.workflow.context.EventContext;
 
-public abstract class EventProcessor implements Serializable {
+public abstract class UIActionProcessor implements Serializable {
 
 	/**
 	 * 
@@ -22,7 +22,7 @@ public abstract class EventProcessor implements Serializable {
 	}
 
 	protected String group(String input, int i) {
-		Matcher matcher = Pattern.compile(this.getClass().getAnnotation(EventPattern.class).value()).matcher(input);
+		Matcher matcher = Pattern.compile(this.getClass().getAnnotation(UIActionPattern.class).value()).matcher(input);
 		if (matcher.matches()) {
 			return Strings.camelCaseToSymbolSeparated(matcher.group(i), "_");
 		}

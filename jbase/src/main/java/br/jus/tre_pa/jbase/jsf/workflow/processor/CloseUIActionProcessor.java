@@ -2,13 +2,13 @@ package br.jus.tre_pa.jbase.jsf.workflow.processor;
 
 import javax.inject.Inject;
 
-import br.jus.tre_pa.jbase.jsf.workflow.annotation.EventPattern;
-import br.jus.tre_pa.jbase.jsf.workflow.base.EventProcessor;
+import br.jus.tre_pa.jbase.jsf.workflow.annotation.UIActionPattern;
+import br.jus.tre_pa.jbase.jsf.workflow.base.UIActionProcessor;
 import br.jus.tre_pa.jbase.jsf.workflow.context.EventContext;
 import br.jus.tre_pa.jbase.jsf.workflow.context.UIService;
 
-@EventPattern("onUpdate([\\w\\d]+)")
-public class OnUpdateEventProcessor extends EventProcessor {
+@UIActionPattern("close")
+public class CloseUIActionProcessor extends UIActionProcessor {
 
 	/**
 	 * 
@@ -18,8 +18,9 @@ public class OnUpdateEventProcessor extends EventProcessor {
 	@Inject
 	private UIService service;
 
+	@Override
 	public void process(EventContext context) {
-		service.update(context.getFormId(), context.getBodyId());
+		service.hide(context.getWvar());
 	}
 
 }
