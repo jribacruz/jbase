@@ -3,6 +3,7 @@ package br.jus.tre_pa.jbase.jsf.template;
 import java.io.Serializable;
 
 import br.gov.frameworkdemoiselle.util.Reflections;
+import br.jus.tre_pa.jbase.jsf.workflow.annotation.Hide;
 import br.jus.tre_pa.jbase.jsf.workflow.base.EventTargetBean;
 
 /**
@@ -12,7 +13,7 @@ import br.jus.tre_pa.jbase.jsf.workflow.base.EventTargetBean;
  *
  * @param <T>
  */
-public abstract class AbstractEditFragmentPageBean<T> implements Serializable, EventTargetBean<T> {
+public abstract class AbstractEditFragmentDialogPageBean<T, L> implements Serializable, EventTargetBean<T> {
 
 	/**
 	 * 
@@ -23,11 +24,14 @@ public abstract class AbstractEditFragmentPageBean<T> implements Serializable, E
 
 	private Class<T> beanClass;
 
-	public abstract String load(T bean);
+	public abstract String load(L id);
 
-	public abstract String cancel();
+	@Hide
+	public String cancel() {
+		return null;
+	}
 
-	public abstract String save();
+	public abstract String update();
 
 	public T getBean() {
 		if (bean == null) {
@@ -36,7 +40,11 @@ public abstract class AbstractEditFragmentPageBean<T> implements Serializable, E
 		return bean;
 	}
 
-	protected Class<T> getBeanClass() {
+	protected void setBean(T bean) {
+		this.bean = bean;
+	}
+
+	private Class<T> getBeanClass() {
 		if (this.beanClass == null) {
 			this.beanClass = Reflections.getGenericTypeArgument(this.getClass(), 0);
 		}

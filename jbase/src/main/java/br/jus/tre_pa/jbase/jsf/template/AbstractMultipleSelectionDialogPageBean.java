@@ -10,7 +10,6 @@ import javax.inject.Inject;
 import org.primefaces.model.DualListModel;
 import org.slf4j.Logger;
 
-import br.jus.tre_pa.jbase.jsf.workflow.annotation.Show;
 import br.jus.tre_pa.jbase.jsf.workflow.annotation.UpdateBody;
 
 /**
@@ -58,17 +57,12 @@ public abstract class AbstractMultipleSelectionDialogPageBean<T, R> implements S
 	 */
 	protected abstract void onCancelBean(T bean);
 
-	/**
-	 * 
-	 * @param bean
-	 */
-	protected abstract void onLoadBean(T bean);
-
-	protected void load(T bean) {
+	public String load(T bean) {
 		log.debug("[load] Carregando {}", bean);
 		this.bean = bean;
 		initTarget();
 		initSource();
+		return null;
 	}
 
 	private void initSource() {
@@ -84,12 +78,6 @@ public abstract class AbstractMultipleSelectionDialogPageBean<T, R> implements S
 			cache.add(handleTarget().get(i));
 		}
 		model.setTarget(new ArrayList<R>(cache));
-	}
-
-	@UpdateBody
-	@Show
-	public String open() {
-		return null;
 	}
 
 	/**
