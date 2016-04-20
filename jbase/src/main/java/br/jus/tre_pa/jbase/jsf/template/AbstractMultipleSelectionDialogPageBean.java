@@ -10,6 +10,7 @@ import javax.inject.Inject;
 import org.primefaces.model.DualListModel;
 import org.slf4j.Logger;
 
+import br.jus.tre_pa.jbase.jsf.workflow.annotation.Show;
 import br.jus.tre_pa.jbase.jsf.workflow.annotation.UpdateBody;
 
 /**
@@ -59,24 +60,35 @@ public abstract class AbstractMultipleSelectionDialogPageBean<T, R> implements S
 
 	/**
 	 * 
-	 * @param item
+	 * @param bean
 	 */
-	protected abstract void resetRelationship(R item);
+	protected abstract void onLoadBean(T bean);
 
-	/**
-	 * 
-	 * @param item
-	 */
-	protected abstract void updateRelationship(R item);
-
-	@UpdateBody
-	public String load(T bean) {
+	protected void load(T bean) {
+		log.debug("[load] Carregando {}", bean);
 		this.bean = bean;
-		model.setTarget(new ArrayList<R>(handleTarget()));
+		initTarget();
+		initSource();
+	}
+
+	private void initSource() {
 		if (model.getSource().isEmpty()) {
 			model.setSource(handleSource());
 			model.getSource().removeAll(model.getTarget());
 		}
+	}
+
+	private void initTarget() {
+		List<R> cache = new ArrayList<R>();
+		for (int i = 0; i < handleTarget().size(); i++) {
+			cache.add(handleTarget().get(i));
+		}
+		model.setTarget(new ArrayList<R>(cache));
+	}
+
+	@UpdateBody
+	@Show
+	public String open() {
 		return null;
 	}
 
@@ -85,8 +97,8 @@ public abstract class AbstractMultipleSelectionDialogPageBean<T, R> implements S
 	 * @return
 	 */
 	public String done() {
-		// addSelectedsToBean();
 		removeDeselectedsFromBean();
+		addSelectedsToBean();
 		return null;
 	}
 
@@ -130,7 +142,6 @@ public abstract class AbstractMultipleSelectionDialogPageBean<T, R> implements S
 		while (iter.hasNext()) {
 			R item = iter.next();
 			if (!handleTarget().contains(item)) {
-				updateRelationship(item);
 				handleTarget().add(item);
 			}
 		}
@@ -143,21 +154,11 @@ public abstract class AbstractMultipleSelectionDialogPageBean<T, R> implements S
 		ListIterator<R> iter = handleTarget().listIterator();
 		while (iter.hasNext()) {
 			R item = iter.next();
-			System.out.println("SIZE BEFORE===============> "+handleTarget().size());
 			if (!model.getTarget().contains(item)) {
-				resetRelationship(item);
 				iter.remove();
-				System.out.println("SIZE AFTER===============> "+handleTarget().size());
 				log.debug("[removeDeselectedsFromBean] Item removido: {}", item);
-				//handleTarget().remove(item);
 			}
 		}
-		/*
-		 * for(R item: new ArrayList<R>(handleTarget())) { if
-		 * (!model.getTarget().contains(item)) { System.out.println(
-		 * "============> Removendo Item "+item); handleTarget().remove(item); }
-		 * }
-		 */
 	}
 
 	public DualListModel<R> getModel() {
