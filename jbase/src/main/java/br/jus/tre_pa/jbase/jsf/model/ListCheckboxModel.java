@@ -1,7 +1,6 @@
 package br.jus.tre_pa.jbase.jsf.model;
 
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
@@ -27,15 +26,6 @@ public class ListCheckboxModel<R> implements Serializable {
 		initMap();
 		checkSelecteds();
 	}
-	
-	/*
-	public ListCheckboxModel(List<R> fullList) {
-		super();
-		this.fullList = fullList;
-		this.selectedList = new ArrayList<R>();
-		initMap();
-		checkSelecteds();
-	}*/
 
 	private void initMap() {
 		for (R item : fullList) {
