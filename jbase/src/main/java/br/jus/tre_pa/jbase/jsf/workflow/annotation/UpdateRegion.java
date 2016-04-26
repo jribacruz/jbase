@@ -21,5 +21,5 @@ public @interface UpdateRegion {
 	Class<?> forClass() default Void.class;
 
 	@Nonbinding
-	String id();
+	String[] id();
 }
