@@ -42,6 +42,7 @@ public class BusinessValidatorManagerImpl<T> implements BusinessValidatorManager
 	@SuppressWarnings("unchecked")
 	@Override
 	public void validate(T bean) {
+		validatorContext.clear();
 		if (bean != null) {
 			Class<T> beanClass = (Class<T>) bean.getClass();
 			Iterator<BusinessValidator<T>> iterValidatorsForBeanClass = validatorsMap.get(beanClass).iterator();

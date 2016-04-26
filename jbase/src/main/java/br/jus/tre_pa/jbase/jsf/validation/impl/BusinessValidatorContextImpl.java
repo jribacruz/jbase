@@ -1,5 +1,7 @@
 package br.jus.tre_pa.jbase.jsf.validation.impl;
 
+import java.util.List;
+
 import javax.enterprise.context.SessionScoped;
 
 import br.jus.tre_pa.jbase.jsf.validation.context.BusinessValidatorContext;
@@ -55,6 +57,11 @@ public class BusinessValidatorContextImpl implements BusinessValidatorContext {
 	@Override
 	public void addMessage(String message) {
 		this.errors.getErrorList().add(new BusinessValidationErrorItem(message));
+	}
+
+	@Override
+	public List<BusinessValidationErrorItem> getErrors() {
+		return this.errors.getErrorList();
 	}
 
 }
