@@ -11,7 +11,10 @@ import org.primefaces.model.DualListModel;
 import org.slf4j.Logger;
 
 import br.jus.tre_pa.jbase.jsf.workflow.annotation.Hide;
+import br.jus.tre_pa.jbase.jsf.workflow.annotation.Show;
 import br.jus.tre_pa.jbase.jsf.workflow.annotation.UpdateBody;
+import br.jus.tre_pa.jbase.jsf.workflow.annotation.UpdateFooter;
+import br.jus.tre_pa.jbase.jsf.workflow.annotation.UpdateHeader;
 
 /**
  * 
@@ -58,6 +61,10 @@ public abstract class AbstractMultipleSelectionDialogPageBean<T, R> implements S
 	 */
 	protected abstract void onCancelBean(T bean);
 
+	@Show
+	@UpdateHeader
+	@UpdateBody
+	@UpdateFooter
 	public String load(T bean) {
 		log.debug("[load] Carregando {}", bean);
 		this.bean = bean;
