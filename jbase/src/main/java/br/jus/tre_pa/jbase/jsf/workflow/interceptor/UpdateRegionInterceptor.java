@@ -42,14 +42,16 @@ public class UpdateRegionInterceptor implements Serializable {
 		return forClass.getSimpleName();
 	}
 
-	private String getId(InvocationContext ic) {
+	private String[] getIds(InvocationContext ic) {
 		return ic.getMethod().getAnnotation(UpdateRegion.class).id();
 	}
 
 	private void processUpdateRegion(InvocationContext ic) {
 		String forClassId = Strings.camelCaseToSymbolSeparated(getForClass(ic).replaceAll("MB", ""), "_");
-		String id = String.format("%s_form_id:%s", forClassId, getId(ic));
-		service.update(id);
+		for (String id : getIds(ic)) {
+			String componentId = String.format("%s_form_id:%s", forClassId, id);
+			service.update(componentId);
+		}
 	}
 
 }
