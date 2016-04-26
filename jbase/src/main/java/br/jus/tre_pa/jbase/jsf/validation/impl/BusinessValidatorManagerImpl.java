@@ -10,6 +10,7 @@ import br.gov.frameworkdemoiselle.annotation.Ignore;
 import br.jus.tre_pa.jbase.jsf.validation.BusinessValidatorManager;
 import br.jus.tre_pa.jbase.jsf.validation.BusinessValidationException;
 import br.jus.tre_pa.jbase.jsf.validation.BusinessValidator;
+import br.jus.tre_pa.jbase.jsf.validation.BusinessValidatorContext;
 
 /**
  * 
@@ -32,10 +33,15 @@ public class BusinessValidatorManagerImpl<T> implements BusinessValidatorManager
 	/**
 	 * 
 	 */
+	@Inject
+	private BusinessValidatorContext validatorContext;
+
+	/**
+	 * 
+	 */
 	@SuppressWarnings("unchecked")
 	@Override
 	public void validate(T bean) {
-		boolean validationFailed = false;
 		if (bean != null) {
 			Class<T> beanClass = (Class<T>) bean.getClass();
 			Iterator<BusinessValidator<T>> iterValidatorsForBeanClass = validatorsMap.get(beanClass).iterator();
@@ -45,24 +51,21 @@ public class BusinessValidatorManagerImpl<T> implements BusinessValidatorManager
 					try {
 						validator.validate(bean);
 					} catch (BusinessValidationException e) {
-						validationFailed = true;
+						validatorContext.validationFailed();
 					}
 				}
-			}
-			if (validationFailed) {
-				// throw new BusinessValidationException("");
 			}
 		}
 	}
 
+	/**
+	 * 
+	 * @param validator
+	 * @return
+	 */
 	@SuppressWarnings("rawtypes")
 	private boolean isIgnoredValidator(BusinessValidator validator) {
 		return validator.getClass().isAnnotationPresent(Ignore.class);
-	}
-
-	@Override
-	public boolean isValidationFailed() {
-		return false;
 	}
 
 }

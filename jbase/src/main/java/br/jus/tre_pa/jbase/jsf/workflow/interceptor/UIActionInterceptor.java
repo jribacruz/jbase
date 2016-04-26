@@ -10,7 +10,6 @@ import javax.enterprise.inject.Any;
 import javax.enterprise.inject.Instance;
 import javax.faces.context.FacesContext;
 import javax.inject.Inject;
-import javax.inject.Named;
 import javax.interceptor.AroundInvoke;
 import javax.interceptor.Interceptor;
 import javax.interceptor.InvocationContext;
@@ -22,13 +21,15 @@ import org.slf4j.LoggerFactory;
 
 import br.gov.frameworkdemoiselle.message.MessageContext;
 import br.gov.frameworkdemoiselle.util.Beans;
-import br.jus.tre_pa.jbase.jsf.workflow.annotation.UIActionPattern;
+import br.jus.tre_pa.jbase.jsf.validation.BusinessValidatorContext;
 import br.jus.tre_pa.jbase.jsf.workflow.annotation.UIAction;
-import br.jus.tre_pa.jbase.jsf.workflow.base.UIActionProcessor;
+import br.jus.tre_pa.jbase.jsf.workflow.annotation.UIActionPattern;
 import br.jus.tre_pa.jbase.jsf.workflow.base.EventTargetBean;
+import br.jus.tre_pa.jbase.jsf.workflow.base.UIActionProcessor;
 import br.jus.tre_pa.jbase.jsf.workflow.context.EventContext;
 import br.jus.tre_pa.jbase.jsf.workflow.context.UIService;
 import br.jus.tre_pa.jbase.jsf.workflow.implementation.EventContextImpl;
+import br.jus.tre_pa.jbase.jsf.workflow.utils.InvocationContextUtil;
 
 @Interceptor
 @UIAction
@@ -55,6 +56,9 @@ public class UIActionInterceptor implements Serializable {
 	private UIService service;
 
 	@Inject
+	private BusinessValidatorContext businessValidatorContext;
+
+	@Inject
 	private MessageContext messageContext;
 
 	private Map<String, String> context;
@@ -63,8 +67,6 @@ public class UIActionInterceptor implements Serializable {
 
 	@AroundInvoke
 	public Object invoke(InvocationContext ic) throws Exception {
-		log.debug("==>[invoke] Target: {}, Method: {}, Params: {}", new Object[] {
-				ic.getTarget().getClass().getSuperclass().getSimpleName(), ic.getMethod().getName(), ic.getParameters() });
 		Object ret = null;
 		try {
 			ret = ic.proceed();
@@ -72,7 +74,7 @@ public class UIActionInterceptor implements Serializable {
 			 * Os processors só serão executados se o estado do FacesContext não
 			 * estiver falho.
 			 */
-			if (!FacesContext.getCurrentInstance().isValidationFailed()) {
+			if (!FacesContext.getCurrentInstance().isValidationFailed() && !businessValidatorContext.isValidationFailed()) {
 				EventContext eventContext = createEventContext(ic);
 				log.debug(eventContext.toString());
 				Iterator<UIActionProcessor> it = actionProcessors.iterator();
@@ -122,7 +124,7 @@ public class UIActionInterceptor implements Serializable {
 	private EventContext createEventContext(InvocationContext ic) {
 		String actionName = getActionName(ic);
 		Object eventBean = getEventBean(ic);
-		String managedBean = getManagedBean(ic);
+		String managedBean = InvocationContextUtil.getManagedBean(ic);
 		EventContext eventContext = new EventContextImpl(eventBean, actionName, managedBean);
 		this.context = new HashMap<String, String>();
 		this.context.put("formId", eventContext.getFormId());
@@ -131,13 +133,6 @@ public class UIActionInterceptor implements Serializable {
 		this.context.put("footerId", eventContext.getFooterId());
 		this.context.put("wvar", eventContext.getWvar());
 		return eventContext;
-	}
-
-	private String getManagedBean(InvocationContext ic) {
-		if (ic.getTarget().getClass().getSuperclass().isAnnotationPresent(Named.class)) {
-			return ic.getTarget().getClass().getSuperclass().getAnnotation(Named.class).value();
-		}
-		return ic.getTarget().getClass().getSuperclass().getSimpleName();
 	}
 
 	private String getActionName(InvocationContext ic) {

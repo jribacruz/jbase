@@ -7,6 +7,11 @@ import br.jus.tre_pa.jbase.jsf.workflow.base.UIActionProcessor;
 import br.jus.tre_pa.jbase.jsf.workflow.context.EventContext;
 import br.jus.tre_pa.jbase.jsf.workflow.context.UIService;
 
+/**
+ * 
+ * @author jcruz
+ *
+ */
 @UIActionPattern("clear")
 public class ClearUIActionProcessor extends UIActionProcessor {
 
@@ -18,6 +23,9 @@ public class ClearUIActionProcessor extends UIActionProcessor {
 	@Inject
 	private UIService service;
 
+	/**
+	 * 
+	 */
 	public void process(EventContext context) {
 		service.update(context.getFormId(), context.getBodyId());
 	}

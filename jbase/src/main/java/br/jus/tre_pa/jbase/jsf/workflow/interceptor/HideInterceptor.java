@@ -4,18 +4,15 @@ import java.io.Serializable;
 
 import javax.faces.context.FacesContext;
 import javax.inject.Inject;
-import javax.inject.Named;
 import javax.interceptor.AroundInvoke;
 import javax.interceptor.Interceptor;
 import javax.interceptor.InvocationContext;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
-import br.gov.frameworkdemoiselle.message.MessageContext;
 import br.gov.frameworkdemoiselle.util.Strings;
+import br.jus.tre_pa.jbase.jsf.validation.BusinessValidatorContext;
 import br.jus.tre_pa.jbase.jsf.workflow.annotation.Hide;
 import br.jus.tre_pa.jbase.jsf.workflow.context.UIService;
+import br.jus.tre_pa.jbase.jsf.workflow.utils.InvocationContextUtil;
 
 @Interceptor
 @Hide
@@ -30,46 +27,24 @@ public class HideInterceptor implements Serializable {
 	private UIService service;
 
 	@Inject
-	private MessageContext messageContext;
-
-	private Logger log = LoggerFactory.getLogger(HideInterceptor.class);
+	private BusinessValidatorContext businessValidatorContext;
 
 	@AroundInvoke
 	public Object invoke(InvocationContext ic) throws Exception {
-		log.debug("==>[invoke] Target: {}, Method: {}, Params: {}",
-				new Object[] { ic.getTarget().getClass().getSuperclass().getSimpleName(), ic.getMethod().getName(), ic.getParameters() });
-		Object ret = null;
-		try {
-			ret = ic.proceed();
-			if (!FacesContext.getCurrentInstance().isValidationFailed()) {
-				processHide(ic);
-			}
-			return ret;
-		} catch (Exception e) {
-			messageContext.add(e.getMessage());
-			service.showError();
-			e.printStackTrace();
+		Object ret = ic.proceed();
+		if (isValidationFailed()) {
+			processHide(ic);
 		}
 		return ret;
 	}
 
-	private String getManagedBean(InvocationContext ic) {
-		if (ic.getTarget().getClass().getSuperclass().isAnnotationPresent(Named.class)) {
-			return ic.getTarget().getClass().getSuperclass().getAnnotation(Named.class).value();
-		}
-		return ic.getTarget().getClass().getSuperclass().getSimpleName();
-	}
-
-	private String getForClass(InvocationContext ic) {
-		Class<?> forClass = ic.getMethod().getAnnotation(Hide.class).forClass();
-		if (forClass == Void.class) {
-			return getManagedBean(ic);
-		}
-		return forClass.getSimpleName();
+	private boolean isValidationFailed() {
+		return !FacesContext.getCurrentInstance().isValidationFailed() && !businessValidatorContext.isValidationFailed();
 	}
 
 	private void processHide(InvocationContext ic) {
-		String forClassName = Strings.camelCaseToSymbolSeparated(getForClass(ic).replaceAll("MB", ""), "_");
+		String forClassName = Strings.camelCaseToSymbolSeparated(InvocationContextUtil.getForClass(ic, Hide.class).replaceAll("MB", ""),
+				"_");
 		String wvar = String.format("%s_wvar", forClassName);
 		service.hide(wvar);
 	}

@@ -15,6 +15,4 @@ public interface BusinessValidatorManager<T> extends Serializable {
 	 */
 	void validate(T bean);
 
-	boolean isValidationFailed();
-
 }
