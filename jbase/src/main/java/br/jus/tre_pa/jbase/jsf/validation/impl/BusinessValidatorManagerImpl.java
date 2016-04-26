@@ -8,9 +8,9 @@ import com.google.common.collect.Multimap;
 
 import br.gov.frameworkdemoiselle.annotation.Ignore;
 import br.jus.tre_pa.jbase.jsf.validation.BusinessValidatorManager;
-import br.jus.tre_pa.jbase.jsf.validation.BusinessValidationException;
+import br.jus.tre_pa.jbase.jsf.validation.context.BusinessValidatorContext;
+import br.jus.tre_pa.jbase.jsf.validation.exception.BusinessValidationException;
 import br.jus.tre_pa.jbase.jsf.validation.BusinessValidator;
-import br.jus.tre_pa.jbase.jsf.validation.BusinessValidatorContext;
 
 /**
  * 
@@ -51,6 +51,7 @@ public class BusinessValidatorManagerImpl<T> implements BusinessValidatorManager
 					try {
 						validator.validate(bean);
 					} catch (BusinessValidationException e) {
+						validatorContext.addMessage(e.getMessage());
 						validatorContext.validationFailed();
 					}
 				}

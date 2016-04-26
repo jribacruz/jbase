@@ -1,4 +1,4 @@
-package br.jus.tre_pa.jbase.jsf.validation;
+package br.jus.tre_pa.jbase.jsf.validation.context;
 
 import java.io.Serializable;
 
@@ -19,4 +19,10 @@ public interface BusinessValidatorContext extends Serializable {
 	 * 
 	 */
 	void clear();
+
+	/**
+	 * 
+	 * @param message
+	 */
+	void addMessage(String message);
 }

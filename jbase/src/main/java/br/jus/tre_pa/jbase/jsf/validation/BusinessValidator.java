@@ -4,6 +4,8 @@ import java.io.Serializable;
 
 import org.apache.commons.lang.StringUtils;
 
+import br.jus.tre_pa.jbase.jsf.validation.exception.BusinessValidationException;
+
 /**
  * 
  * Classe que define um ponto de validação de negócio para a entidade T.

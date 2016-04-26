@@ -1,4 +1,4 @@
-package br.jus.tre_pa.jbase.jsf.validation;
+package br.jus.tre_pa.jbase.jsf.validation.exception;
 
 import br.gov.frameworkdemoiselle.exception.ApplicationException;
 import br.gov.frameworkdemoiselle.message.SeverityType;

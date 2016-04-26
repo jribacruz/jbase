@@ -9,7 +9,7 @@ import javax.interceptor.Interceptor;
 import javax.interceptor.InvocationContext;
 
 import br.gov.frameworkdemoiselle.util.Strings;
-import br.jus.tre_pa.jbase.jsf.validation.BusinessValidatorContext;
+import br.jus.tre_pa.jbase.jsf.validation.context.BusinessValidatorContext;
 import br.jus.tre_pa.jbase.jsf.workflow.annotation.UpdateHeader;
 import br.jus.tre_pa.jbase.jsf.workflow.context.UIService;
 import br.jus.tre_pa.jbase.jsf.workflow.utils.InvocationContextUtil;

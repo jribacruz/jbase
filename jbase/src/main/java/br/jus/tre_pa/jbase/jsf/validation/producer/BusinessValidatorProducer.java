@@ -1,4 +1,4 @@
-package br.jus.tre_pa.jbase.jsf.validation;
+package br.jus.tre_pa.jbase.jsf.validation.producer;
 
 import java.io.Serializable;
 import java.util.Iterator;
@@ -13,6 +13,7 @@ import com.google.common.collect.ArrayListMultimap;
 import com.google.common.collect.Multimap;
 
 import br.gov.frameworkdemoiselle.util.Reflections;
+import br.jus.tre_pa.jbase.jsf.validation.BusinessValidator;
 
 /**
  * 

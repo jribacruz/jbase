@@ -19,9 +19,8 @@ import org.apache.commons.lang.text.StrSubstitutor;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import br.gov.frameworkdemoiselle.message.MessageContext;
 import br.gov.frameworkdemoiselle.util.Beans;
-import br.jus.tre_pa.jbase.jsf.validation.BusinessValidatorContext;
+import br.jus.tre_pa.jbase.jsf.validation.context.BusinessValidatorContext;
 import br.jus.tre_pa.jbase.jsf.workflow.annotation.UIAction;
 import br.jus.tre_pa.jbase.jsf.workflow.annotation.UIActionPattern;
 import br.jus.tre_pa.jbase.jsf.workflow.base.EventTargetBean;
@@ -58,44 +57,33 @@ public class UIActionInterceptor implements Serializable {
 	@Inject
 	private BusinessValidatorContext businessValidatorContext;
 
-	@Inject
-	private MessageContext messageContext;
-
 	private Map<String, String> context;
 
 	private Logger log = LoggerFactory.getLogger(UIActionInterceptor.class);
 
 	@AroundInvoke
 	public Object invoke(InvocationContext ic) throws Exception {
-		Object ret = null;
-		try {
-			ret = ic.proceed();
-			/*
-			 * Os processors só serão executados se o estado do FacesContext não
-			 * estiver falho.
-			 */
-			if (!FacesContext.getCurrentInstance().isValidationFailed() && !businessValidatorContext.isValidationFailed()) {
-				EventContext eventContext = createEventContext(ic);
-				log.debug(eventContext.toString());
-				Iterator<UIActionProcessor> it = actionProcessors.iterator();
-				while (it.hasNext()) {
-					UIActionProcessor processor = it.next();
-					if (executeProcessor(eventContext, processor)) {
-						break;
-					}
+		Object ret = ic.proceed();
+		/*
+		 * Os processors só serão executados se o estado do FacesContext não
+		 * estiver falho.
+		 */
+		if (!FacesContext.getCurrentInstance().isValidationFailed() && !businessValidatorContext.isValidationFailed()) {
+			EventContext eventContext = createEventContext(ic);
+			log.debug(eventContext.toString());
+			Iterator<UIActionProcessor> it = actionProcessors.iterator();
+			while (it.hasNext()) {
+				UIActionProcessor processor = it.next();
+				if (executeProcessor(eventContext, processor)) {
+					break;
 				}
-				processUpdate(ic);
-				processShow(ic);
-				processHide(ic);
-				processExecute(ic);
-				processScrollTo(ic);
-				fireEvent(eventContext);
 			}
-			return ret;
-		} catch (Exception e) {
-			messageContext.add(e.getMessage());
-			service.showError();
-			e.printStackTrace();
+			processUpdate(ic);
+			processShow(ic);
+			processHide(ic);
+			processExecute(ic);
+			processScrollTo(ic);
+			fireEvent(eventContext);
 		}
 		return ret;
 	}
