@@ -64,5 +64,16 @@ public abstract class BusinessValidator<T> implements Serializable {
 			fail(messageOnFailure);
 		}
 	}
+	
+	/**
+	 * 
+	 * @param value
+	 * @param messageOnFailure
+	 */	
+	protected void failIsAlpha(String value, String messageOnFailure){
+		if (StringUtils.isNotEmpty(value) && StringUtils.isNumeric(value)){
+			fail(messageOnFailure);
+		}
+	}
 
 }
