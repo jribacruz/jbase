@@ -24,14 +24,6 @@ public interface UIService extends Serializable {
 
 	/**
 	 * 
-	 * @param formId
-	 * @param parentId
-	 * @param id
-	 */
-	void update(String formId, String parentId, String id);
-
-	/**
-	 * 
 	 * @param forClass
 	 */
 	void updateBody(Class<?> forClass);
@@ -76,21 +68,6 @@ public interface UIService extends Serializable {
 
 	/**
 	 * 
-	 * @param formId
-	 * @param id
-	 */
-	void scrollTo(String formId, String id);
-
-	/**
-	 * 
-	 * @param formId
-	 * @param parentId
-	 * @param id
-	 */
-	void scrollTo(String formId, String parentId, String id);
-
-	/**
-	 * 
 	 * @param wvar
 	 */
 	void show(String wvar);
@@ -121,18 +98,17 @@ public interface UIService extends Serializable {
 
 	/**
 	 * 
-	 * @param formId
+	 * @param beanClass
 	 * @param id
 	 */
-	void hightlightEffect(String formId, String id);
+	void hightlightEffect(Class<?> beanClass, String id);
 
 	/**
 	 * 
 	 * @param formId
-	 * @param parentId
 	 * @param id
 	 */
-	void hightlightEffect(String formId, String parentId, String id);
+	void hightlightEffect(String formId, String id);
 
 	/**
 	 * 
