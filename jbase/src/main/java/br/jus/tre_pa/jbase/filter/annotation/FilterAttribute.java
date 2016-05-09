@@ -5,7 +5,7 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
-import br.jus.tre_pa.jbase.filter.OperatorType;
+import br.jus.tre_pa.jbase.filter.enums.OperatorType;
 
 /**
  * 
@@ -23,12 +23,6 @@ public @interface FilterAttribute {
 	 * @return
 	 */
 	String name() default "";
-
-	/**
-	 * 
-	 * @return
-	 */
-	String pathAlias() default "";
 
 	/**
 	 * 

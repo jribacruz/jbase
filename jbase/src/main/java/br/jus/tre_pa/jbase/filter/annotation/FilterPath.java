@@ -5,6 +5,8 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
+import br.jus.tre_pa.jbase.filter.enums.JoinType;
+
 /**
  * 
  * @author jcruz
@@ -23,5 +25,5 @@ public @interface FilterPath {
 	 * 
 	 * @return
 	 */
-	String alias() default "";
+	JoinType join() default JoinType.LEFT;
 }

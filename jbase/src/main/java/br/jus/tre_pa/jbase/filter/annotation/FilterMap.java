@@ -5,7 +5,7 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
-import br.jus.tre_pa.jbase.filter.JoinType;
+import br.jus.tre_pa.jbase.filter.enums.JunctionType;
 
 /**
  * 
@@ -26,5 +26,6 @@ public @interface FilterMap {
 	 * 
 	 * @return
 	 */
-	JoinType join() default JoinType.OR;
+	JunctionType junction() default JunctionType.OR;
+
 }
