@@ -9,77 +9,107 @@ public class FilterBuilder {
 
 	private FilterBeanModel model;
 
-	private StringBuilder sql;
+	/**
+	 * 
+	 */
+	private StringBuilder jpql;
 
-	Map<String, String> paramMap = new HashMap<String, String>();
+	/**
+	 * 
+	 */
+	private Map<String, String> jpqlParams = new HashMap<String, String>();
+
+	/**
+	 * 
+	 */
+	private Map<String, String> jpqlFragments = new HashMap<String, String>();
 
 	public FilterBuilder() {
 		super();
-		this.sql = new StringBuilder();
+		this.jpql = new StringBuilder();
 	}
 
-	public String buildSQL(Object bean) {
+	public String buildJPQL(Object bean) {
 		this.model = new FilterBeanModel(bean);
-		this.createParams();
+		this.createJPQLParams();
+		this.createJPQLFragments();
 
-		this.buildSelectSQL();
-		this.buildPathSQL();
-		this.buildWhereSQL();
-		this.buildOrderBySQL();
-		return this.sql.toString();
-	}
-
-	private void createParams() {
-		paramMap.put("entityName", model.getEntityName());
-		paramMap.put("alias", model.getAlias());
-		paramMap.put("projectionAttributes", model.getProjectionAttributesAsString());
-		paramMap.put("orderAttributes", model.getOrderByAttributesAsString());
+		this.buildSelectFragmentJPQL();
+		this.buildPathFragmentJPQL();
+		this.buildWhereFragmentJPQL();
+		this.buildOrderByFragmentJPQL();
+		return this.jpql.toString();
 	}
 
 	/**
-	 * 
+	 * Monta a parte do 'select' do JPQL.
 	 */
-	protected void buildSelectSQL() {
-		if (model.getProjectionAttributes().isEmpty()) {
-			String selectSQL = "select ${alias} from ${entityName} ${alias} ";
-			sql.append(new StrSubstitutor(paramMap).replace(selectSQL));
+	protected void buildSelectFragmentJPQL() {
+		// Verifica se o FilterModel possui lista de projeções.
+		if (model.hasProjectionAttributes()) {
+			// Monta um select com o construtor da entidade dado a lista de atributos de projeção.
+			buildFragment("select.constructor");
 			return;
 		}
-		String selectSQL = "select new ${entityName}(${projectionAttributes}) from ${entityName} ${alias} ";
-		sql.append(new StrSubstitutor(paramMap).replace(selectSQL));
-		sql.append("\n");
+		// Monta um select padrão (ex: select x from X)
+		buildFragment("select.default");
 	}
 
 	/**
-	 * 
+	 * Monta a parte dos 'joins', se existir, do JPQL.
 	 */
-	protected void buildPathSQL() {
-		String pathSQL = "left join ${path} ${pathAlias} \n";
+	protected void buildPathFragmentJPQL() {
 		for (Map<String, String> path : model.getPaths()) {
 			for (Map.Entry<String, String> entry : path.entrySet()) {
-				Map<String,String> pathMap = new HashMap<String, String>();
+				Map<String, String> pathMap = new HashMap<String, String>();
 				pathMap.put("path", entry.getValue());
-				pathMap.put("pathAlias", entry.getKey());
-				sql.append(new StrSubstitutor(pathMap).replace(pathSQL));
+				pathMap.put("path.alias", entry.getKey());
+				buildFragment("path", pathMap);
 			}
 		}
 	}
 
 	/**
-	 * 
+	 * Monta a parte do 'order by' do JPQL.
 	 */
-	protected void buildWhereSQL() {
-
+	protected void buildOrderByFragmentJPQL() {
+		if (model.hasOrderByAttributes()) {
+			buildFragment("orderby");
+		}
 	}
 
 	/**
 	 * 
 	 */
-	protected void buildOrderBySQL() {
-		if (!model.getOrderByAttributes().isEmpty()) {
-			String orderBySQL = "order by ${orderAttributes} ";
-			sql.append(new StrSubstitutor(paramMap).replace(orderBySQL));
-		}
+	protected void buildWhereFragmentJPQL() {
+
 	}
 
+	/**
+	 * Monta os parâmentros que serão substituidos nos fragmentos.
+	 */
+	private void createJPQLParams() {
+		jpqlParams.put("entity.name", model.getEntityName());
+		jpqlParams.put("alias", model.getAlias());
+		jpqlParams.put("projection.attributes", model.getProjectionAttributesAsString());
+		jpqlParams.put("order.attributes", model.getOrderByAttributesAsString());
+	}
+
+	/**
+	 * 
+	 */
+	private void createJPQLFragments() {
+		jpqlFragments.put("select.default", "select ${alias} from ${entity.name} ${alias} ");
+		jpqlFragments.put("select.constructor", "select new ${entity.name}(${projection.attributes}) from ${entity.name} ${alias} ");
+		jpqlFragments.put("path", "left join ${path} ${path.alias} ");
+		jpqlFragments.put("orderby", "order by ${order.attributes}");
+	}
+
+	private void buildFragment(String jpqlFragment) {
+		jpql.append(new StrSubstitutor(jpqlParams).replace(jpqlFragments.get(jpqlFragment)));
+	}
+
+	private void buildFragment(String jpqlFragment, Map<String, String> params) {
+		jpql.append(new StrSubstitutor(params).replace(jpqlFragments.get(jpqlFragment)));
+	}
 }

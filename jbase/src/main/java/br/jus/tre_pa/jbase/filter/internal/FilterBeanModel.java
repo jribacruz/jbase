@@ -69,6 +69,10 @@ public class FilterBeanModel {
 		return projectionAttributes;
 	}
 
+	public boolean hasProjectionAttributes() {
+		return !getProjectionAttributes().isEmpty();
+	}
+
 	public String getProjectionAttributesAsString() {
 		return StringUtils.join(getProjectionAttributes(), ",");
 	}
@@ -113,6 +117,10 @@ public class FilterBeanModel {
 			}
 		}
 		return orderByAttributes;
+	}
+
+	public boolean hasOrderByAttributes() {
+		return !this.orderByAttributes.isEmpty();
 	}
 
 	/**

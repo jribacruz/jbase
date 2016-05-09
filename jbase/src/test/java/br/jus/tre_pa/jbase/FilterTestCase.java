@@ -18,7 +18,7 @@ public class FilterTestCase {
 	@Test
 	public void filterBuildTest() {
 		FilterBuilder builder = new FilterBuilder();
-		String sql = builder.buildSQL(new FooFilter());
+		String sql = builder.buildJPQL(new FooFilter());
 
 		System.out.println(sql);
 	}
@@ -26,7 +26,7 @@ public class FilterTestCase {
 	@Test
 	public void filterBuildProjectionTest() {
 		FilterBuilder builder = new FilterBuilder();
-		String sql = builder.buildSQL(new FooProjectionFilter());
+		String sql = builder.buildJPQL(new FooProjectionFilter());
 
 		System.out.println(sql);
 	}
@@ -34,7 +34,7 @@ public class FilterTestCase {
 	@Test
 	public void filterBuildPathTest() {
 		FilterBuilder builder = new FilterBuilder();
-		String sql = builder.buildSQL(new FooPathFilter());
+		String sql = builder.buildJPQL(new FooPathFilter());
 
 		System.out.println(sql);
 	}
