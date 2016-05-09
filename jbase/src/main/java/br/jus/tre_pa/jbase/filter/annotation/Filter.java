@@ -12,7 +12,7 @@ import java.lang.annotation.Target;
  */
 @Retention(RetentionPolicy.RUNTIME)
 @Target(ElementType.TYPE)
-public @interface FilterBean {
+public @interface Filter {
 
 	/**
 	 * 
@@ -37,10 +37,4 @@ public @interface FilterBean {
 	 * @return
 	 */
 	String alias();
-
-	/**
-	 * 
-	 * @return
-	 */
-	Class<?> entity();
 }
