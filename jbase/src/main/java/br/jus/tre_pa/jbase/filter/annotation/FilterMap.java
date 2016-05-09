@@ -5,7 +5,7 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
-import br.jus.tre_pa.jbase.filter.FilterOperatorType;
+import br.jus.tre_pa.jbase.filter.JoinType;
 
 /**
  * 
@@ -14,10 +14,17 @@ import br.jus.tre_pa.jbase.filter.FilterOperatorType;
  */
 @Retention(RetentionPolicy.RUNTIME)
 @Target(ElementType.FIELD)
-public @interface FilterOperator {
+public @interface FilterMap {
+
 	/**
 	 * 
 	 * @return
 	 */
-	FilterOperatorType value();
+	FilterAttribute[] value();
+
+	/**
+	 * 
+	 * @return
+	 */
+	JoinType join() default JoinType.OR;
 }

@@ -1,11 +1,17 @@
 package br.jus.tre_pa.jbase.filter.internal;
 
+import java.lang.reflect.Field;
+import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.commons.beanutils.BeanUtils;
+import org.apache.commons.lang.StringUtils;
+
 import br.gov.frameworkdemoiselle.util.Strings;
+import br.jus.tre_pa.jbase.filter.annotation.FilterAttribute;
 import br.jus.tre_pa.jbase.filter.annotation.FilterBean;
 import br.jus.tre_pa.jbase.filter.annotation.FilterPath;
 
@@ -26,6 +32,11 @@ public class FilterBeanModel {
 	 * 
 	 */
 	private List<Map<String, String>> paths;
+
+	/**
+	 * 
+	 */
+	private List<FilterBeanAttributeModel> whereAttributes;
 
 	/**
 	 * 
@@ -56,6 +67,10 @@ public class FilterBeanModel {
 			}
 		}
 		return projectionAttributes;
+	}
+
+	public String getProjectionAttributesAsString() {
+		return StringUtils.join(getProjectionAttributes(), ",");
 	}
 
 	/**
@@ -104,6 +119,14 @@ public class FilterBeanModel {
 	 * 
 	 * @return
 	 */
+	public String getOrderByAttributesAsString() {
+		return StringUtils.join(getOrderByAttributes(), ",");
+	}
+
+	/**
+	 * 
+	 * @return
+	 */
 	public List<Map<String, String>> getPaths() {
 		if (this.paths == null) {
 			this.paths = new ArrayList<Map<String, String>>();
@@ -114,6 +137,47 @@ public class FilterBeanModel {
 			}
 		}
 		return paths;
+	}
+
+	/**
+	 * 
+	 * @return
+	 */
+	public List<FilterBeanAttributeModel> getWhereAttributes() {
+		if (this.whereAttributes == null) {
+			this.whereAttributes = new ArrayList<FilterBeanAttributeModel>();
+			for (Map.Entry<String, String> entry : describeFilterBean().entrySet()) {
+				Field field = getFieldFromFilterBean(entry.getKey());
+				if (field.isAnnotationPresent(FilterAttribute.class)) {
+					this.whereAttributes.add(new FilterBeanAttributeModel(field));
+				}
+			}
+		}
+		return whereAttributes;
+	}
+
+	private Field getFieldFromFilterBean(String name) {
+		try {
+			return this.filterBean.getClass().getField(name);
+		} catch (NoSuchFieldException e) {
+			e.printStackTrace();
+		} catch (SecurityException e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
+
+	private Map<String, String> describeFilterBean() {
+		try {
+			return BeanUtils.describe(this.filterBean);
+		} catch (IllegalAccessException e) {
+			e.printStackTrace();
+		} catch (InvocationTargetException e) {
+			e.printStackTrace();
+		} catch (NoSuchMethodException e) {
+			e.printStackTrace();
+		}
+		return new HashMap<String, String>();
 	}
 
 }

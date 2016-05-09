@@ -5,13 +5,15 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
+import br.jus.tre_pa.jbase.filter.OperatorType;
+
 /**
  * 
  * @author jcruz
  *
  */
 @Retention(RetentionPolicy.RUNTIME)
-@Target(ElementType.FIELD)
+@Target({ ElementType.FIELD, ElementType.ANNOTATION_TYPE })
 public @interface FilterAttribute {
 
 	/**
@@ -27,5 +29,17 @@ public @interface FilterAttribute {
 	 * @return
 	 */
 	String pathAlias() default "";
+
+	/**
+	 * 
+	 * @return
+	 */
+	OperatorType operator() default OperatorType.EQUAL;
+
+	/**
+	 * 
+	 * @return
+	 */
+	Class<?> type() default Void.class;
 
 }

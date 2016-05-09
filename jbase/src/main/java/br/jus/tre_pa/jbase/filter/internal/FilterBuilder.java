@@ -1,14 +1,17 @@
 package br.jus.tre_pa.jbase.filter.internal;
 
+import java.util.HashMap;
 import java.util.Map;
 
-import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang.text.StrSubstitutor;
 
 public class FilterBuilder {
 
 	private FilterBeanModel model;
 
 	private StringBuilder sql;
+
+	Map<String, String> paramMap = new HashMap<String, String>();
 
 	public FilterBuilder() {
 		super();
@@ -17,6 +20,8 @@ public class FilterBuilder {
 
 	public String buildSQL(Object bean) {
 		this.model = new FilterBeanModel(bean);
+		this.createParams();
+
 		this.buildSelectSQL();
 		this.buildPathSQL();
 		this.buildWhereSQL();
@@ -24,20 +29,24 @@ public class FilterBuilder {
 		return this.sql.toString();
 	}
 
+	private void createParams() {
+		paramMap.put("entityName", model.getEntityName());
+		paramMap.put("alias", model.getAlias());
+		paramMap.put("projectionAttributes", model.getProjectionAttributesAsString());
+		paramMap.put("orderAttributes", model.getOrderByAttributesAsString());
+	}
+
 	/**
 	 * 
 	 */
 	protected void buildSelectSQL() {
-		String entityName = model.getEntityName();
-		String alias = model.getAlias();
-
 		if (model.getProjectionAttributes().isEmpty()) {
-			Object[] params = { alias, entityName, alias };
-			sql.append(String.format("select %s from %s %s ", params));
+			String selectSQL = "select ${alias} from ${entityName} ${alias} ";
+			sql.append(new StrSubstitutor(paramMap).replace(selectSQL));
 			return;
 		}
-		Object[] params = { entityName, StringUtils.join(model.getProjectionAttributes(), ","), entityName, alias };
-		sql.append(String.format("select new %s(%s) from %s %s ", params));
+		String selectSQL = "select new ${entityName}(${projectionAttributes}) from ${entityName} ${alias} ";
+		sql.append(new StrSubstitutor(paramMap).replace(selectSQL));
 		sql.append("\n");
 	}
 
@@ -45,10 +54,13 @@ public class FilterBuilder {
 	 * 
 	 */
 	protected void buildPathSQL() {
+		String pathSQL = "left join ${path} ${pathAlias} \n";
 		for (Map<String, String> path : model.getPaths()) {
 			for (Map.Entry<String, String> entry : path.entrySet()) {
-				sql.append(String.format("left join %s %s ", entry.getValue(), entry.getKey()));
-				sql.append("\n");
+				Map<String,String> pathMap = new HashMap<String, String>();
+				pathMap.put("path", entry.getValue());
+				pathMap.put("pathAlias", entry.getKey());
+				sql.append(new StrSubstitutor(pathMap).replace(pathSQL));
 			}
 		}
 	}
@@ -65,8 +77,8 @@ public class FilterBuilder {
 	 */
 	protected void buildOrderBySQL() {
 		if (!model.getOrderByAttributes().isEmpty()) {
-			sql.append(String.format("order by %s ", StringUtils.join(model.getOrderByAttributes(), ",")));
-			return;
+			String orderBySQL = "order by ${orderAttributes} ";
+			sql.append(new StrSubstitutor(paramMap).replace(orderBySQL));
 		}
 	}
 

@@ -4,7 +4,7 @@ import java.io.Serializable;
 
 import br.jus.tre_pa.jbase.filter.annotation.FilterBean;
 
-@FilterBean(alias = "foo", entity = FooEntity.class, projection = { "name", "desc" }, orderBy = "nome")
+@FilterBean(alias = "foo", entity = FooEntity.class, projection = { "name", "desc" }, orderBy = "nome DESC")
 public class FooProjectionFilter implements Serializable {
 
 	/**
