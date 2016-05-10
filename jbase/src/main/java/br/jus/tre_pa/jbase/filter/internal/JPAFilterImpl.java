@@ -15,9 +15,12 @@ public class JPAFilterImpl implements JPAFilter {
 	@Inject
 	private FilterContext filterContext;
 
+	/**
+	 * 
+	 */
 	@Override
 	public String createStringQuery() {
-		return null;
+		return new JPQLBuilder().build(filterContext.getActive());
 	}
 
 }

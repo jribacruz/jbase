@@ -28,7 +28,7 @@ public @interface FilterAttribute {
 	 * 
 	 * @return
 	 */
-	OperatorType operator() default OperatorType.EQUAL;
+	OperatorType operator() default OperatorType.DEFAULT;
 
 	/**
 	 * 

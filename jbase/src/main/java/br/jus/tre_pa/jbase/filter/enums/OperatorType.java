@@ -69,7 +69,12 @@ public enum OperatorType {
 	/**
 	 * 
 	 */
-	NOT_IN("not in");
+	NOT_IN("not in"),
+
+	/**
+	 * 
+	 */
+	DEFAULT("");
 
 	private String expression;
 
