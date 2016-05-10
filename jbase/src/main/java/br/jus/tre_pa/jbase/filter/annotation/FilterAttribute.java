@@ -22,7 +22,7 @@ public @interface FilterAttribute {
 	 * 
 	 * @return
 	 */
-	String name() default "";
+	String name();
 
 	/**
 	 * 
