@@ -16,4 +16,12 @@ public class FilterTestCase {
 		String jpql = builder.build(fooFilter);
 		System.out.println(jpql);
 	}
+	
+	@Test
+	public void test2() {
+		FooFilterProjection fooFilter = new FooFilterProjection();
+		JPQLBuilder builder = new JPQLBuilder();
+		String jpql = builder.build(fooFilter);
+		System.out.println(jpql);
+	}
 }

@@ -46,6 +46,7 @@ public class FilterParserHelper {
 		return alias.concat(".").concat(field.getName());
 	}
 
+	@SuppressWarnings("unchecked")
 	public static <T, F extends Filterable<T>> Class<T> getEntityClass(F filter) {
 		for (Type type : filter.getClass().getGenericInterfaces()) {
 			ParameterizedType paramType = null;

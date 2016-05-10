@@ -2,6 +2,7 @@ package br.jus.tre_pa.jbase.filter.internal;
 
 import java.lang.reflect.Field;
 
+import br.gov.frameworkdemoiselle.util.Strings;
 import br.jus.tre_pa.jbase.filter.Filterable;
 import br.jus.tre_pa.jbase.filter.annotation.Filter;
 import br.jus.tre_pa.jbase.filter.enums.OperatorType;
@@ -63,7 +64,9 @@ public class FilterParser {
 	private void extractFilterClassAnnotationProjectionAttribute(Class<?> filterClass) {
 		String[] projectionAttributeArray = filterClass.getAnnotation(Filter.class).projection();
 		for (String projectionAttribute : projectionAttributeArray) {
-			model.getProjectionAttributes().add(projectionAttribute);
+			if (!Strings.isEmpty(projectionAttribute)) {
+				model.getProjectionAttributes().add(projectionAttribute);
+			}
 		}
 	}
 

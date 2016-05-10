@@ -33,7 +33,7 @@ public class JPQLBuilder {
 	}
 
 	private void buildSelect() {
-		if (model.getProjectionAttributes().isEmpty()) {
+		if (!model.getProjectionAttributes().isEmpty()) {
 			jpql.append(JPQLBuilderHelper
 					.replace("select new ${entity.class.name}(${projection.attributes}) from ${entity.class.name} ${alias}", jpqlParams));
 			return;
