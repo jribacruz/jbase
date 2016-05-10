@@ -45,10 +45,10 @@ public class FilterParser {
 	private <T, F extends Filterable<T>> void processFilterClassAnnotation(F filter) {
 		Class<?> filterClass = filter.getClass();
 		extractFilterClassEntityClassName(filter);
-		extractFilterClassAnnotationAliasAttribute(filterClass);
 		extractFilterClassAnnotationProjectionAttribute(filterClass);
-		extractFilterClassAnnotationPathsAttribute(filterClass);
 		extractFilterClassAnnotationOrderByAttribute(filterClass);
+		extractFilterClassAnnotationAliasAttribute(filterClass);
+		extractFilterClassAnnotationPathsAttribute(filterClass);
 	}
 
 	private <T, F extends Filterable<T>> void extractFilterClassEntityClassName(F filter) {
@@ -87,7 +87,9 @@ public class FilterParser {
 	private void extractFilterClassAnnotationOrderByAttribute(Class<?> filterClass) {
 		String[] orderByAttributeArray = filterClass.getAnnotation(Filter.class).orderBy();
 		for (String orderByAttribute : orderByAttributeArray) {
-			model.getOrderByAttributes().add(orderByAttribute);
+			if (!Strings.isEmpty(orderByAttribute)) {
+				model.getOrderByAttributes().add(orderByAttribute);
+			}
 		}
 	}
 

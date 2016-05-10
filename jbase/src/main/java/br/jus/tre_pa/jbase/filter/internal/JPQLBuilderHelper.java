@@ -11,6 +11,10 @@ public class JPQLBuilderHelper {
 	public static String getProjectionAttributesAsString(List<String> projectionAttributes) {
 		return StringUtils.join(projectionAttributes, ",");
 	}
+	
+	public static String getOrderByAttributesAsString(List<String> orderByAttributes) {
+		return StringUtils.join(orderByAttributes, ",");
+	}
 
 	public static String replace(String exp, Map<String, String> params) {
 		return new StrSubstitutor(params).replace(exp);

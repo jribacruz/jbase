@@ -24,4 +24,20 @@ public class FilterTestCase {
 		String jpql = builder.build(fooFilter);
 		System.out.println(jpql);
 	}
+	
+	@Test
+	public void test3() {
+		FooFilterOrderBy fooFilter = new FooFilterOrderBy();
+		JPQLBuilder builder = new JPQLBuilder();
+		String jpql = builder.build(fooFilter);
+		System.out.println(jpql);
+	}
+	
+	@Test
+	public void test4() {
+		FooFilterProjectionOrderBy fooFilter = new FooFilterProjectionOrderBy();
+		JPQLBuilder builder = new JPQLBuilder();
+		String jpql = builder.build(fooFilter);
+		System.out.println(jpql);
+	}
 }
