@@ -12,7 +12,12 @@ import br.jus.tre_pa.jbase.filter.annotation.Filter;
 import br.jus.tre_pa.jbase.filter.annotation.FilterAttribute;
 import br.jus.tre_pa.jbase.filter.enums.OperatorType;
 
-public class FilterParserHelper {
+/**
+ * 
+ * @author jcruz
+ *
+ */
+public class FilterInfo {
 
 	public static List<Field> getAttributesAsField(Object bean) {
 		return new ArrayList<Field>();

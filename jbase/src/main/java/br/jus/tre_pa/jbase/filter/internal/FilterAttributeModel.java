@@ -8,6 +8,8 @@ public class FilterAttributeModel {
 
 	private OperatorType operatorType;
 
+	private Object value;
+
 	public FilterAttributeModel() {
 		super();
 	}

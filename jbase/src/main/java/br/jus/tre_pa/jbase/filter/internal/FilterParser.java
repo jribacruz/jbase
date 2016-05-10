@@ -2,6 +2,8 @@ package br.jus.tre_pa.jbase.filter.internal;
 
 import java.lang.reflect.Field;
 
+import org.apache.commons.beanutils.BeanUtils;
+
 import br.gov.frameworkdemoiselle.util.Strings;
 import br.jus.tre_pa.jbase.filter.Filterable;
 import br.jus.tre_pa.jbase.filter.annotation.Filter;
@@ -52,7 +54,7 @@ public class FilterParser {
 	}
 
 	private <T, F extends Filterable<T>> void extractFilterClassEntityClassName(F filter) {
-		String entityClassName = FilterParserHelper.<T, F> getEntityClass(filter).getSimpleName();
+		String entityClassName = FilterInfo.<T, F> getEntityClass(filter).getSimpleName();
 		model.setEntityClassName(entityClassName);
 	}
 
@@ -99,8 +101,8 @@ public class FilterParser {
 	 * @param filter
 	 */
 	private <T, F extends Filterable<T>> void processFilterClassAttributes(F filter) {
-		String alias = FilterParserHelper.getAlias(filter);
-		for (Field field : FilterParserHelper.getAttributesAsField(filter)) {
+		String alias = FilterInfo.getAlias(filter);
+		for (Field field : FilterInfo.getAttributesAsField(filter)) {
 			processStringTypeAttribute(field, alias);
 			processBooleanTypeAttribute(field, alias);
 			processLongTypeAttribute(field, alias);
@@ -116,11 +118,10 @@ public class FilterParser {
 	 * Processa os atributos do filtro do tipo String.
 	 */
 	private void processStringTypeAttribute(Field field, String alias) {
-		if (FilterParserHelper.isStringTypeField(field)) {
-			OperatorType operatorType = FilterParserHelper.isDefaultOperator(field) ? OperatorType.LIKE
-					: FilterParserHelper.getOperator(field);
-			String attributeName = FilterParserHelper.getAttributeName(field, alias);
-
+		if (FilterInfo.isStringTypeField(field)) {
+			OperatorType operatorType = FilterInfo.isDefaultOperator(field) ? OperatorType.LIKE : FilterInfo.getOperator(field);
+			String attributeName = FilterInfo.getAttributeName(field, alias);
+			
 			FilterAttributeModel attributeModel = new FilterAttributeModel(attributeName, operatorType);
 			model.getPredicateAttributes().put(field, attributeModel);
 		}

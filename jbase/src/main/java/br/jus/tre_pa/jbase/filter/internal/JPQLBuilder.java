@@ -1,9 +1,11 @@
 package br.jus.tre_pa.jbase.filter.internal;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
-import org.primefaces.expression.impl.JQuerySelectorExpressionResolver;
+import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang.text.StrSubstitutor;
 
 import br.jus.tre_pa.jbase.filter.Filterable;
 
@@ -30,18 +32,17 @@ public class JPQLBuilder {
 		this.jpqlParams = new HashMap<String, String>();
 		this.jpqlParams.put("alias", model.getAlias());
 		this.jpqlParams.put("entity.class.name", model.getEntityClassName());
-		this.jpqlParams.put("projection.attributes", JPQLBuilderHelper.getProjectionAttributesAsString(model.getProjectionAttributes()));
-		this.jpqlParams.put("orderby.attributes", JPQLBuilderHelper.getOrderByAttributesAsString(model.getOrderByAttributes()));
+		this.jpqlParams.put("projection.attributes", attributeListToString(model.getProjectionAttributes()));
+		this.jpqlParams.put("orderby.attributes", attributeListToString(model.getOrderByAttributes()));
 
 	}
 
 	private void buildSelect() {
 		if (!model.getProjectionAttributes().isEmpty()) {
-			jpql.append(JPQLBuilderHelper
-					.replace("select new ${entity.class.name}(${projection.attributes}) from ${entity.class.name} ${alias} ", jpqlParams));
+			buildJPQLFragment("select new ${entity.class.name}(${projection.attributes}) from ${entity.class.name} ${alias} ");
 			return;
 		}
-		jpql.append(JPQLBuilderHelper.replace("select ${alias} from ${entity.class.name} ${alias} ", jpqlParams));
+		buildJPQLFragment("select ${alias} from ${entity.class.name} ${alias} ");
 	}
 
 	private void buildPaths() {
@@ -53,8 +54,16 @@ public class JPQLBuilder {
 	}
 
 	private void buildOrderBy() {
-		if(!model.getOrderByAttributes().isEmpty()) {
-			jpql.append(JPQLBuilderHelper.replace("order by ${orderby.attributes} ", jpqlParams));
+		if (!model.getOrderByAttributes().isEmpty()) {
+			buildJPQLFragment("order by ${orderby.attributes} ");
 		}
+	}
+
+	private void buildJPQLFragment(String jpqlFragment) {
+		jpql.append(new StrSubstitutor(jpqlParams).replace(jpqlFragment));
+	}
+
+	private String attributeListToString(List<String> attributes) {
+		return StringUtils.join(attributes, ",");
 	}
 }
