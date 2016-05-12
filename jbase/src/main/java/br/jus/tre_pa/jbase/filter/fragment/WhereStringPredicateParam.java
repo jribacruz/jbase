@@ -18,12 +18,7 @@ public class WhereStringPredicateParam extends AbstractWherePredicateParam {
 	}
 
 	@Override
-	public String buildJPQLFragment() {
-		return replace("?%d", this.getParamIndex());
-	}
-
-	@Override
-	public void buildQueryParam(Query query) {
+	public void setupQueryParam(Query query) {
 		if (getPredicate().getOperatorType().equals(OperatorType.LIKE) || getPredicate().getOperatorType().equals(OperatorType.NOT_LIKE)) {
 			query.setParameter(getPredicate().getAttribute().getName(),
 					"%" + getPredicate().getAttribute().getValueAsString().toUpperCase() + "%");

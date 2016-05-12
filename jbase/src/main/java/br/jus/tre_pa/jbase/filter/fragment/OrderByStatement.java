@@ -18,6 +18,9 @@ public class OrderByStatement extends AbstractJPQLFragment {
 	 */
 	private List<String> orderByExpressions = new ArrayList<String>();
 
+	/**
+	 * Monta a declaração OrderBy.
+	 */
 	@Override
 	public String buildJPQLFragment() {
 		return replace("%s", joinOrderByExpressions());

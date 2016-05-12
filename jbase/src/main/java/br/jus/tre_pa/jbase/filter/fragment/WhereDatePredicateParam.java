@@ -4,6 +4,7 @@ import javax.persistence.Query;
 import javax.persistence.TemporalType;
 
 /**
+ * Representa um parametro do tipo Date de um predicado binário.
  * 
  * @author jcruz
  *
@@ -15,12 +16,7 @@ public class WhereDatePredicateParam extends AbstractWherePredicateParam {
 	}
 
 	@Override
-	public String buildJPQLFragment() {
-		return replace("?%d", this.getParamIndex());
-	}
-
-	@Override
-	public void buildQueryParam(Query query) {
+	public void setupQueryParam(Query query) {
 		query.setParameter(getPredicate().getAttribute().getName(), getPredicate().getAttribute().getValueAsDate(), TemporalType.TIMESTAMP);
 	}
 

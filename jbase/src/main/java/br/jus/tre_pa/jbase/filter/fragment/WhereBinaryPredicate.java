@@ -20,6 +20,9 @@ public class WhereBinaryPredicate extends AbstractWherePredicate {
 	 */
 	private AbstractWherePredicateParam param;
 
+	/**
+	 * Monta o predicado binário.
+	 */
 	@Override
 	public String buildJPQLFragment() {
 		if (getAttribute().getType() == String.class) {

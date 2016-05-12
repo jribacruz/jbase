@@ -26,7 +26,19 @@ public abstract class AbstractWherePredicateParam extends AbstractJPQLFragment {
 		this.predicate = predicate;
 	}
 
-	public abstract void buildQueryParam(Query query);
+	/**
+	 * 
+	 */
+	@Override
+	public String buildJPQLFragment() {
+		return replace("?%d", this.getParamIndex());
+	}
+
+	/**
+	 * 
+	 * @param query
+	 */
+	public abstract void setupQueryParam(Query query);
 
 	public AbstractWherePredicate getPredicate() {
 		return predicate;
