@@ -33,16 +33,16 @@ public class SelectStatement extends AbstractJPQLFragment {
 				this.alias);
 	}
 
+	public String buildCountJPQLFragment() {
+		return replace("select count(%s) from %s %s", this.alias, this.entity.getSimpleName(), this.alias);
+	}
+
 	private String joinAttributes() {
 		List<String> attributeNames = new ArrayList<String>();
 		for (EntityAttribute attribute : attributes) {
 			attributeNames.add(attribute.getName());
 		}
 		return StringUtils.join(attributeNames, ",");
-	}
-
-	public String buildCountJPQLFragment() {
-		return null;
 	}
 
 	public List<EntityAttribute> getAttributes() {
