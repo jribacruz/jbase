@@ -5,7 +5,7 @@ package br.jus.tre_pa.jbase.filter.enums;
  * @author jcruz
  *
  */
-public enum OperatorType implements LogicalOperator {
+public enum OperatorType implements Operator {
 	/**
 	 * 
 	 */

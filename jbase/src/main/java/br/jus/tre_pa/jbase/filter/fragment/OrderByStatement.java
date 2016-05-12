@@ -1,5 +1,10 @@
 package br.jus.tre_pa.jbase.filter.fragment;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import org.apache.commons.lang.StringUtils;
+
 /**
  * 
  * @author jcruz
@@ -7,9 +12,19 @@ package br.jus.tre_pa.jbase.filter.fragment;
  */
 public class OrderByStatement extends AbstractJPQLFragment {
 
+	private List<String> orderByExpressions = new ArrayList<String>();
+
 	@Override
 	public String buildJPQLFragment() {
-		return null;
+		return replace("%s", joinOrderByExpressions());
+	}
+
+	public List<String> getOrderByExpressions() {
+		return orderByExpressions;
+	}
+
+	private String joinOrderByExpressions() {
+		return StringUtils.join(getOrderByExpressions(), ",");
 	}
 
 }

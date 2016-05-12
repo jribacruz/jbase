@@ -5,7 +5,7 @@ import java.util.List;
 
 import org.apache.commons.lang.StringUtils;
 
-import br.jus.tre_pa.jbase.filter.enums.LogicalOperator;
+import br.jus.tre_pa.jbase.filter.enums.Operator;
 
 /**
  * 
@@ -31,7 +31,7 @@ public abstract class AbstractJPQLFragment {
 	 * @param logicalOperator
 	 * @return
 	 */
-	protected <T> String joinFragments(LogicalOperator logicalOperator) {
+	protected <T> String joinFragments(Operator logicalOperator) {
 		return StringUtils.join(this.fragments, logicalOperator.getRepresentation());
 	}
 
@@ -41,7 +41,7 @@ public abstract class AbstractJPQLFragment {
 	 * @param logicalOperator
 	 * @return
 	 */
-	protected <T> String joinFragments(String preffix, LogicalOperator logicalOperator) {
+	protected <T> String joinFragments(String preffix, Operator logicalOperator) {
 		return preffix.concat(StringUtils.join(this.fragments, logicalOperator.getRepresentation()));
 	}
 
@@ -52,7 +52,7 @@ public abstract class AbstractJPQLFragment {
 	 * @param suffix
 	 * @return
 	 */
-	protected <T> String joinFragments(String preffix, LogicalOperator logicalOperator, String suffix) {
+	protected <T> String joinFragments(String preffix, Operator logicalOperator, String suffix) {
 		return preffix.concat(StringUtils.join(this.fragments, logicalOperator.getRepresentation())).concat(suffix);
 	}
 

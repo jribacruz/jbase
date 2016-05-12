@@ -2,8 +2,6 @@ package br.jus.tre_pa.jbase.filter.fragment;
 
 import javax.persistence.Query;
 
-import br.jus.tre_pa.jbase.filter.enums.OperatorType;
-
 /**
  * 
  * 
@@ -12,10 +10,13 @@ import br.jus.tre_pa.jbase.filter.enums.OperatorType;
  */
 public abstract class AbstractWherePredicateParam extends AbstractJPQLFragment {
 
+	private int paramIndex;
+
 	private AbstractWherePredicate predicate;
 
-	public AbstractWherePredicateParam(AbstractWherePredicate predicate) {
+	public AbstractWherePredicateParam(int paramIndex, AbstractWherePredicate predicate) {
 		super();
+		this.paramIndex = paramIndex;
 		this.predicate = predicate;
 	}
 
@@ -27,6 +28,10 @@ public abstract class AbstractWherePredicateParam extends AbstractJPQLFragment {
 
 	public void setPredicate(AbstractWherePredicate predicate) {
 		this.predicate = predicate;
+	}
+
+	public int getParamIndex() {
+		return paramIndex;
 	}
 
 }

@@ -11,13 +11,14 @@ import br.jus.tre_pa.jbase.filter.enums.OperatorType;
  */
 public class WhereStringPredicateParam extends AbstractWherePredicateParam {
 
-	public WhereStringPredicateParam(AbstractWherePredicate predicate) {
-		super(predicate);
+	public WhereStringPredicateParam(int paramIndex, AbstractWherePredicate predicate) {
+		super(paramIndex, predicate);
+		// TODO Auto-generated constructor stub
 	}
 
 	@Override
 	public String buildJPQLFragment() {
-		return replace(":%s", getPredicate().getAttribute().getName());
+		return replace("?%d", this.getParamIndex());
 	}
 
 	@Override

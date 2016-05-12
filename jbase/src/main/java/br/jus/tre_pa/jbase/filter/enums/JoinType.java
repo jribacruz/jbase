@@ -5,13 +5,25 @@ package br.jus.tre_pa.jbase.filter.enums;
  * @author jcruz
  *
  */
-public enum JoinType {
+public enum JoinType implements Operator {
 	/** Inner join. */
-	INNER,
+	INNER("inner join"),
 
 	/** Left outer join. */
-	LEFT,
+	LEFT("left join"),
 
 	/** Right outer join. */
-	RIGHT
+	RIGHT("right join");
+
+	private String representation;
+
+	private JoinType(String representation) {
+		this.representation = representation;
+	}
+
+	@Override
+	public String getRepresentation() {
+		return this.representation;
+	}
+
 }

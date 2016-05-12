@@ -29,8 +29,8 @@ public class SelectStatement extends AbstractJPQLFragment {
 		if (this.attributes.isEmpty()) {
 			return replace("select %s from %s %s", this.alias, this.entity.getSimpleName(), this.alias);
 		}
-		return replace("select new %s(%s) from %s %s", this.entity.getSimpleName(), joinAttributes(), this.alias,
-				this.entity.getSimpleName());
+		return replace("select new %s(%s) from %s %s", this.entity.getSimpleName(), joinAttributes(), this.entity.getSimpleName(),
+				this.alias);
 	}
 
 	private String joinAttributes() {

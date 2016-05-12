@@ -10,13 +10,13 @@ import javax.persistence.TemporalType;
  */
 public class WhereDatePredicateParam extends AbstractWherePredicateParam {
 
-	public WhereDatePredicateParam(AbstractWherePredicate predicate) {
-		super(predicate);
+	public WhereDatePredicateParam(int paramIndex, AbstractWherePredicate predicate) {
+		super(paramIndex, predicate);
 	}
 
 	@Override
 	public String buildJPQLFragment() {
-		return replace(":%s", getPredicate().getAttribute().getName());
+		return replace("?%d", this.getParamIndex());
 	}
 
 	@Override
