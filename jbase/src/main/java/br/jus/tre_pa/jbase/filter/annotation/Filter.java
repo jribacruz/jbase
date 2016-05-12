@@ -36,5 +36,5 @@ public @interface Filter {
 	 * 
 	 * @return
 	 */
-	String alias();
+	String alias() default "";
 }

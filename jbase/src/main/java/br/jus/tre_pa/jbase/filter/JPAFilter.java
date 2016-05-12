@@ -2,6 +2,8 @@ package br.jus.tre_pa.jbase.filter;
 
 import java.io.Serializable;
 
+import javax.persistence.Query;
+
 /**
  * 
  * @author jcruz
@@ -15,4 +17,10 @@ public interface JPAFilter extends Serializable {
 	 * @return
 	 */
 	String createStringQuery();
+
+	/**
+	 * 
+	 * @param q
+	 */
+	void populateQueryParams(Query q);
 }

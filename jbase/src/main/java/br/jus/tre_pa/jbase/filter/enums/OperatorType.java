@@ -5,7 +5,7 @@ package br.jus.tre_pa.jbase.filter.enums;
  * @author jcruz
  *
  */
-public enum OperatorType {
+public enum OperatorType implements LogicalOperator {
 	/**
 	 * 
 	 */
@@ -76,14 +76,15 @@ public enum OperatorType {
 	 */
 	DEFAULT("");
 
-	private String expression;
+	private String representation;
 
-	private OperatorType(String expression) {
-		this.expression = expression;
+	private OperatorType(String representation) {
+		this.representation = representation;
 	}
 
-	public String getExpression() {
-		return expression;
+	@Override
+	public String getRepresentation() {
+		return this.representation;
 	}
 
 }

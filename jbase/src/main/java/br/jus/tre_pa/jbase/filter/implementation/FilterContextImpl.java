@@ -1,4 +1,4 @@
-package br.jus.tre_pa.jbase.filter.internal;
+package br.jus.tre_pa.jbase.filter.implementation;
 
 import javax.enterprise.context.SessionScoped;
 
