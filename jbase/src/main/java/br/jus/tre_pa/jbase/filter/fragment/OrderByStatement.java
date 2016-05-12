@@ -6,12 +6,16 @@ import java.util.List;
 import org.apache.commons.lang.StringUtils;
 
 /**
+ * Representa uma declaração OrderBy.
  * 
  * @author jcruz
  *
  */
 public class OrderByStatement extends AbstractJPQLFragment {
 
+	/**
+	 * 
+	 */
 	private List<String> orderByExpressions = new ArrayList<String>();
 
 	@Override

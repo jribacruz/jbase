@@ -18,6 +18,7 @@ public class WhereStatement extends AbstractJPQLFragment {
 
 	@Override
 	public String buildJPQLFragment() {
+				
 		for (WherePredicateExpression predicateExpression : getPredicateExpressions()) {
 			getFragments().add(predicateExpression.buildJPQLFragment());
 		}

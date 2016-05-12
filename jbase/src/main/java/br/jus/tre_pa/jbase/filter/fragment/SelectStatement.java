@@ -6,16 +6,27 @@ import java.util.List;
 import org.apache.commons.lang.StringUtils;
 
 /**
+ * Representa uma selecção (SELECT) da JPQL.
  * 
  * @author jcruz
  *
  */
 public class SelectStatement extends AbstractJPQLFragment {
 
+	/**
+	 * Lista de atributos da projeção.
+	 * 
+	 */
 	private List<EntityAttribute> attributes = new ArrayList<EntityAttribute>();
 
+	/**
+	 * Alias da clausula FROM.
+	 */
 	private String alias;
 
+	/**
+	 * Entidade da clausula FROM.
+	 */
 	private Class<?> entity;
 
 	public SelectStatement(Class<?> entity, String alias) {

@@ -4,6 +4,8 @@ import br.jus.tre_pa.jbase.filter.enums.OperatorType;
 
 /**
  * 
+ * Representa um predicado unário da clausula WHERE.
+ * 
  * @author jcruz
  *
  */

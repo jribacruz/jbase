@@ -2,6 +2,12 @@ package br.jus.tre_pa.jbase.filter.fragment;
 
 import org.apache.commons.lang.StringUtils;
 
+/**
+ * Representa uma declaração JPQL completa.
+ * 
+ * @author jcruz
+ *
+ */
 public class JPQLStatement extends AbstractJPQLFragment {
 
 	private SelectStatement selectStatement;

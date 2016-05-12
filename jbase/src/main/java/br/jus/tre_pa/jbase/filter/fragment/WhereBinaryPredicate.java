@@ -4,6 +4,8 @@ import br.jus.tre_pa.jbase.filter.enums.OperatorType;
 
 /**
  * 
+ * Representa um predicado binário (exp op exp) da clausula where.
+ * 
  * @author jcruz
  *
  */

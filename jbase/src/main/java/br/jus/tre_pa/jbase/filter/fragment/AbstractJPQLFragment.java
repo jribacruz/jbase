@@ -9,6 +9,8 @@ import br.jus.tre_pa.jbase.filter.enums.Operator;
 
 /**
  * 
+ * Representa um fragment de JPQL.
+ * 
  * @author jcruz
  *
  */

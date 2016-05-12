@@ -6,6 +6,8 @@ import br.jus.tre_pa.jbase.filter.enums.OperatorType;
 
 /**
  * 
+ * Representa um paramentro do tipo String de um predicado da clausula WHERE.
+ * 
  * @author jcruz
  *
  */
@@ -13,7 +15,6 @@ public class WhereStringPredicateParam extends AbstractWherePredicateParam {
 
 	public WhereStringPredicateParam(int paramIndex, AbstractWherePredicate predicate) {
 		super(paramIndex, predicate);
-		// TODO Auto-generated constructor stub
 	}
 
 	@Override
