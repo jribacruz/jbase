@@ -12,27 +12,19 @@ import br.jus.tre_pa.jbase.filter.fragment.WhereStatement;
 import br.jus.tre_pa.jbase.filter.fragment.WhereStringPredicateParam;
 import br.jus.tre_pa.jbase.filter.fragment.WhereUnaryPredicate;
 
-public class JPQLBuilderApp {
+public class JPQLWhereBuilderApp {
 
 	public static void main(String[] args) {
 
 		WhereStatement where = new WhereStatement();
 
-		EntityAttribute attr1 = new EntityAttribute();
-		attr1.setName("name");
-		attr1.setType(String.class);
+		EntityAttribute attr1 = new EntityAttribute("name", String.class, "jcruz");
 
-		EntityAttribute attr2 = new EntityAttribute();
-		attr2.setName("habilitado");
-		attr2.setType(Boolean.class);
+		EntityAttribute attr2 = new EntityAttribute("habilitado", Boolean.class, true);
 
-		EntityAttribute attr3 = new EntityAttribute();
-		attr3.setName("dtCriacao");
-		attr3.setType(Date.class);
+		EntityAttribute attr3 = new EntityAttribute("dtCriacao", Date.class, new Date());
 
-		EntityAttribute attr4 = new EntityAttribute();
-		attr4.setName("dtExclusao");
-		attr4.setType(Date.class);
+		EntityAttribute attr4 = new EntityAttribute("dtExclusao", Date.class, new Date());
 
 		/**
 		 * EXP1
