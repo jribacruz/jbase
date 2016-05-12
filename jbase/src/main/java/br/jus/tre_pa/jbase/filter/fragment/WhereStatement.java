@@ -7,6 +7,8 @@ import br.jus.tre_pa.jbase.filter.enums.JunctionOperatorType;
 
 /**
  * 
+ * Representa uma declaração WHERE do JPQL.
+ * 
  * @author jcruz
  *
  */
@@ -18,7 +20,6 @@ public class WhereStatement extends AbstractJPQLFragment {
 
 	@Override
 	public String buildJPQLFragment() {
-				
 		for (WherePredicateExpression predicateExpression : getPredicateExpressions()) {
 			getFragments().add(predicateExpression.buildJPQLFragment());
 		}

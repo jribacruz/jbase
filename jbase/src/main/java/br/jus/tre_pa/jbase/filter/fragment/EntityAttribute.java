@@ -5,15 +5,13 @@ import java.math.BigInteger;
 import java.util.Date;
 import java.util.List;
 
-import com.google.common.base.Function;
-
 /**
  * Representa um atributo da entidade.
  * 
  * @author jcruz
  *
  */
-public class EntityAttribute implements Function<EntityAttribute, String> {
+public class EntityAttribute {
 
 	/**
 	 * Nome do atributo da entidade.
@@ -80,11 +78,6 @@ public class EntityAttribute implements Function<EntityAttribute, String> {
 
 	public Object getValue() {
 		return value;
-	}
-
-	@Override
-	public String apply(EntityAttribute arg0) {
-		return null;
 	}
 
 }

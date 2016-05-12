@@ -6,7 +6,7 @@ import java.util.List;
 import org.apache.commons.lang.StringUtils;
 
 /**
- * Representa uma declaração OrderBy.
+ * Representa uma declaração OrderBy do JPQL.
  * 
  * @author jcruz
  *

@@ -6,7 +6,7 @@ import java.util.List;
 import org.apache.commons.lang.StringUtils;
 
 /**
- * Representa uma selecção (SELECT) da JPQL.
+ * Representa uma seleção (SELECT) da JPQL.
  * 
  * @author jcruz
  *
@@ -14,8 +14,22 @@ import org.apache.commons.lang.StringUtils;
 public class SelectStatement extends AbstractJPQLFragment {
 
 	/**
-	 * Lista de atributos da projeção.
-	 * 
+	 * Declaração de SELECT padrão.
+	 */
+	private static String SELECT_DEFAULT_STATEMENT = "select %s from %s %s";
+
+	/**
+	 * Declaração de SELECT com construtor de classe.
+	 */
+	private static String SELECT_CONSTRUCTOR_STATEMENT = "select new %s(%s) from %s %s";
+
+	/**
+	 * Declaração de SELECT de contagem.
+	 */
+	private static String SELECT_COUNT_STATEMENT = "select new %s(%s) from %s %s";
+
+	/**
+	 * Lista de atributos da projeção (Usados para a montagem da declaração de SELECT com construtor de classe).
 	 */
 	private List<EntityAttribute> attributes = new ArrayList<EntityAttribute>();
 
@@ -35,17 +49,24 @@ public class SelectStatement extends AbstractJPQLFragment {
 		this.alias = alias;
 	}
 
+	/**
+	 * 
+	 */
 	@Override
 	public String buildJPQLFragment() {
 		if (this.attributes.isEmpty()) {
-			return replace("select %s from %s %s", this.alias, this.entity.getSimpleName(), this.alias);
+			return replace(SELECT_DEFAULT_STATEMENT, this.alias, this.entity.getSimpleName(), this.alias);
 		}
-		return replace("select new %s(%s) from %s %s", this.entity.getSimpleName(), joinAttributes(), this.entity.getSimpleName(),
+		return replace(SELECT_CONSTRUCTOR_STATEMENT, this.entity.getSimpleName(), joinAttributes(), this.entity.getSimpleName(),
 				this.alias);
 	}
 
+	/**
+	 * 
+	 * @return
+	 */
 	public String buildCountJPQLFragment() {
-		return replace("select count(%s) from %s %s", this.alias, this.entity.getSimpleName(), this.alias);
+		return replace(SELECT_COUNT_STATEMENT, this.alias, this.entity.getSimpleName(), this.alias);
 	}
 
 	private String joinAttributes() {
