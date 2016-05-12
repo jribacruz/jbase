@@ -6,7 +6,7 @@ package br.jus.tre_pa.jbase.filter.enums;
  *
  */
 public enum JunctionOperatorType implements Operator {
-	AND(" \n  and "), OR(" or ");
+	AND(" and "), OR(" or ");
 
 	private String representation;
 

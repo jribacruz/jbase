@@ -26,10 +26,10 @@ public class WhereBinaryPredicate extends AbstractWherePredicate {
 	@Override
 	public String buildJPQLFragment() {
 		if (getAttribute().getType() == String.class) {
-			return replace("upper(%s) %s %s", getAttribute().getName(), getOperatorType().getRepresentation(),
+			return replace(" upper(%s) %s %s ", getAttribute().getName(), getOperatorType().getRepresentation(),
 					getParam().buildJPQLFragment());
 		}
-		return replace("%s %s %s", getAttribute().getName(), getOperatorType().getRepresentation(), getParam().buildJPQLFragment());
+		return replace(" %s %s %s ", getAttribute().getName(), getOperatorType().getRepresentation(), getParam().buildJPQLFragment());
 	}
 
 	public AbstractWherePredicateParam getParam() {

@@ -17,7 +17,7 @@ public class WhereUnaryPredicate extends AbstractWherePredicate {
 
 	@Override
 	public String buildJPQLFragment() {
-		return replace("%s %s", getAttribute().getName(), getOperatorType().getRepresentation());
+		return replace(" %s %s ", getAttribute().getName(), getOperatorType().getRepresentation());
 	}
 
 }

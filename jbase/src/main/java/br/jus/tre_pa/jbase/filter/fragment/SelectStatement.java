@@ -16,17 +16,17 @@ public class SelectStatement extends AbstractJPQLFragment {
 	/**
 	 * Declaração de SELECT padrão.
 	 */
-	private static String SELECT_DEFAULT_STATEMENT = "select %s from %s %s";
+	private static String SELECT_DEFAULT_STATEMENT = "select %s from %s %s ";
 
 	/**
 	 * Declaração de SELECT com construtor de classe.
 	 */
-	private static String SELECT_CONSTRUCTOR_STATEMENT = "select new %s(%s) from %s %s";
+	private static String SELECT_CONSTRUCTOR_STATEMENT = "select new %s(%s) from %s %s ";
 
 	/**
 	 * Declaração de SELECT de contagem.
 	 */
-	private static String SELECT_COUNT_STATEMENT = "select new %s(%s) from %s %s";
+	private static String SELECT_COUNT_STATEMENT = "select new %s(%s) from %s %s ";
 
 	/**
 	 * Lista de atributos da projeção (Usados para a montagem da declaração de SELECT com construtor de classe).

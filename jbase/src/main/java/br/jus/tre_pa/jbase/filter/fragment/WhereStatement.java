@@ -23,7 +23,7 @@ public class WhereStatement extends AbstractJPQLFragment {
 		for (WherePredicateExpression predicateExpression : getPredicateExpressions()) {
 			getFragments().add(predicateExpression.buildJPQLFragment());
 		}
-		return joinFragments("where\n      ", junctionOperator);
+		return joinFragments(" where ", junctionOperator);
 	}
 
 	public List<WherePredicateExpression> getPredicateExpressions() {

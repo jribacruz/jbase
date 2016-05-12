@@ -31,7 +31,7 @@ public class PathStatement extends AbstractJPQLFragment {
 	}
 
 	private String joinPaths() {
-		return StringUtils.join(getFragments(), "\n");
+		return StringUtils.join(getFragments(), "");
 	}
 
 }

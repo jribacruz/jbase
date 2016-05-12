@@ -2,6 +2,8 @@ package br.jus.tre_pa.jbase;
 
 import java.util.Date;
 
+import org.hibernate.engine.jdbc.internal.BasicFormatterImpl;
+
 import br.jus.tre_pa.jbase.filter.enums.JoinType;
 import br.jus.tre_pa.jbase.filter.enums.OperatorType;
 import br.jus.tre_pa.jbase.filter.fragment.EntityAttribute;
@@ -76,8 +78,10 @@ public class JPQLBuilderApp {
 		JPQLStatement jpql = new JPQLStatement(select);
 		jpql.setWhereStatement(where);
 		jpql.setPathStatement(pathStatement);
+		
+		String sql = new BasicFormatterImpl().format(jpql.buildJPQLFragment());
 
-		System.out.println(jpql.buildJPQLFragment());
+		System.out.println(sql);
 	}
 
 }

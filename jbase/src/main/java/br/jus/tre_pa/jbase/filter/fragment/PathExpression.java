@@ -37,7 +37,7 @@ public class PathExpression extends AbstractJPQLFragment {
 	 */
 	@Override
 	public String buildJPQLFragment() {
-		return replace("%s %s %s", joinType.getRepresentation(), path, alias);
+		return replace(" %s %s %s ", joinType.getRepresentation(), path, alias);
 	}
 
 	public JoinType getJoinType() {

@@ -23,7 +23,7 @@ public class OrderByStatement extends AbstractJPQLFragment {
 	 */
 	@Override
 	public String buildJPQLFragment() {
-		return replace("%s", joinOrderByExpressions());
+		return replace(" %s ", joinOrderByExpressions());
 	}
 
 	public List<String> getOrderByExpressions() {

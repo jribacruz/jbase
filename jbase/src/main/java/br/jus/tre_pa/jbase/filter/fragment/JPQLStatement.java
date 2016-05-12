@@ -1,6 +1,11 @@
 package br.jus.tre_pa.jbase.filter.fragment;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import org.apache.commons.lang.StringUtils;
+
+import br.jus.tre_pa.jbase.filter.enums.JPQLStatementType;
 
 /**
  * Representa uma declaração JPQL completa.
@@ -9,6 +14,11 @@ import org.apache.commons.lang.StringUtils;
  *
  */
 public class JPQLStatement extends AbstractJPQLFragment {
+
+	/**
+	 * 
+	 */
+	private Map<JPQLStatementType, String> statements = new HashMap<JPQLStatementType, String>();
 
 	private SelectStatement selectStatement;
 
@@ -27,15 +37,12 @@ public class JPQLStatement extends AbstractJPQLFragment {
 	public String buildJPQLFragment() {
 		getFragments().add(selectStatement.buildJPQLFragment());
 		if (pathStatement != null) {
-			getFragments().add("\n");
 			getFragments().add(pathStatement.buildJPQLFragment());
 		}
 		if (this.whereStatement != null) {
-			getFragments().add("\n");
 			getFragments().add(whereStatement.buildJPQLFragment());
 		}
 		if (this.orderByStatement != null) {
-			getFragments().add("\n");
 			getFragments().add(orderByStatement.buildJPQLFragment());
 		}
 		return joinStatements();
