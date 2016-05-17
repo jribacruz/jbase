@@ -12,8 +12,14 @@ import br.jus.tre_pa.jbase.filter.enums.JunctionOperatorType;
  */
 class WherePredicateExpression extends AbstractJPQLFragment {
 
+	/**
+	 * 
+	 */
 	List<AbstractWherePredicate> predicates = new ArrayList<AbstractWherePredicate>();
 
+	/**
+	 * 
+	 */
 	JunctionOperatorType junctionOperator = JunctionOperatorType.AND;
 
 	@Override

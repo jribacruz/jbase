@@ -18,6 +18,9 @@ class PathStatement extends AbstractJPQLFragment {
 	 */
 	List<PathExpression> paths = new ArrayList<PathExpression>();
 
+	/**
+	 * Monta os caminhos JPQL (Joins).
+	 */
 	@Override
 	String buildJPQLFragment() {
 		paths.collect { p ->  p.buildJPQLFragment() }.join('')

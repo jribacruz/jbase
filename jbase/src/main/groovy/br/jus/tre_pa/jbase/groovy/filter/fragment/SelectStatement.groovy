@@ -27,8 +27,8 @@ class SelectStatement extends AbstractJPQLFragment {
 	 * Entidade da clausula FROM.
 	 */
 	Class<?> entity;
-	
-	
+
+
 
 	SelectStatement() {
 		super();
@@ -41,7 +41,7 @@ class SelectStatement extends AbstractJPQLFragment {
 	}
 
 	/**
-	 * 
+	 * Monta a clausula select.
 	 */
 	@Override
 	String buildJPQLFragment() {
@@ -53,6 +53,8 @@ class SelectStatement extends AbstractJPQLFragment {
 	}
 
 	/**
+	 * 
+	 * Monta clausula select de contagem.
 	 * 
 	 * @return
 	 */
