@@ -57,6 +57,9 @@ public class BusinessValidatorManagerImpl<T> implements BusinessValidatorManager
 					}
 				}
 			}
+			if(validatorContext.isValidationFailed()) {
+				throw new BusinessValidationException();
+			}
 		}
 	}
 
