@@ -16,15 +16,14 @@ class WhereStringPredicateParam extends AbstractWherePredicateParam {
 	WhereStringPredicateParam(int paramIndex, AbstractWherePredicate predicate) {
 		super(paramIndex, predicate);
 	}
-	
-	//TODO UpperCase nos parametros
+
 	@Override
 	void setupQueryParam(Query query) {
 		if (predicate.operatorType.equals(OperatorType.LIKE) || predicate.operatorType.equals(OperatorType.NOT_LIKE)) {
-			query.setParameter(predicate.attribute.name, "%${predicate.attribute}%");
+			query.setParameter(predicate.attribute.name, "%${(predicate.attribute as String).toUpperCase()}%");
 			return;
 		}
-		query.setParameter(predicate.attribute.name, predicate.attribute as String);
+		query.setParameter(predicate.attribute.name, (predicate.attribute as String).toUpperCase());
 	}
 
 }
