@@ -6,18 +6,18 @@ import org.hibernate.engine.jdbc.internal.BasicFormatterImpl;
 
 import br.jus.tre_pa.jbase.filter.enums.JoinType;
 import br.jus.tre_pa.jbase.filter.enums.OperatorType;
-import br.jus.tre_pa.jbase.filter.fragment.EntityAttribute;
-import br.jus.tre_pa.jbase.filter.fragment.JPQLStatement;
-import br.jus.tre_pa.jbase.filter.fragment.PathExpression;
-import br.jus.tre_pa.jbase.filter.fragment.PathStatement;
-import br.jus.tre_pa.jbase.filter.fragment.SelectStatement;
-import br.jus.tre_pa.jbase.filter.fragment.WhereBinaryPredicate;
-import br.jus.tre_pa.jbase.filter.fragment.WhereDatePredicateParam;
-import br.jus.tre_pa.jbase.filter.fragment.WherePredicateExpression;
-import br.jus.tre_pa.jbase.filter.fragment.WherePredicateGroupedExpression;
-import br.jus.tre_pa.jbase.filter.fragment.WhereStatement;
-import br.jus.tre_pa.jbase.filter.fragment.WhereStringPredicateParam;
-import br.jus.tre_pa.jbase.filter.fragment.WhereUnaryPredicate;
+import br.jus.tre_pa.jbase.groovy.filter.fragment.EntityAttribute;
+import br.jus.tre_pa.jbase.groovy.filter.fragment.JPQLStatement;
+import br.jus.tre_pa.jbase.groovy.filter.fragment.PathExpression;
+import br.jus.tre_pa.jbase.groovy.filter.fragment.PathStatement;
+import br.jus.tre_pa.jbase.groovy.filter.fragment.SelectStatement;
+import br.jus.tre_pa.jbase.groovy.filter.fragment.WhereBinaryPredicate;
+import br.jus.tre_pa.jbase.groovy.filter.fragment.WhereDatePredicateParam;
+import br.jus.tre_pa.jbase.groovy.filter.fragment.WherePredicateExpression;
+import br.jus.tre_pa.jbase.groovy.filter.fragment.WherePredicateGroupedExpression;
+import br.jus.tre_pa.jbase.groovy.filter.fragment.WhereStatement;
+import br.jus.tre_pa.jbase.groovy.filter.fragment.WhereStringPredicateParam;
+import br.jus.tre_pa.jbase.groovy.filter.fragment.WhereUnaryPredicate;
 
 public class JPQLBuilderApp {
 

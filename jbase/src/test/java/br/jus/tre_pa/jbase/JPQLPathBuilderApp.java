@@ -1,8 +1,8 @@
 package br.jus.tre_pa.jbase;
 
 import br.jus.tre_pa.jbase.filter.enums.JoinType;
-import br.jus.tre_pa.jbase.filter.fragment.PathExpression;
-import br.jus.tre_pa.jbase.filter.fragment.PathStatement;
+import br.jus.tre_pa.jbase.groovy.filter.fragment.PathExpression;
+import br.jus.tre_pa.jbase.groovy.filter.fragment.PathStatement;
 
 public class JPQLPathBuilderApp {
 

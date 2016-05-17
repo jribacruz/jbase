@@ -1,4 +1,4 @@
-package br.jus.tre_pa.jbase.filter.fragment;
+package br.jus.tre_pa.jbase.groovy.filter.fragment;
 
 import java.util.HashMap;
 import java.util.Map;

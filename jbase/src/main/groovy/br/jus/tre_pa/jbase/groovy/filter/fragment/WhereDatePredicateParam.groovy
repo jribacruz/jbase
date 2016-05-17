@@ -1,4 +1,4 @@
-package br.jus.tre_pa.jbase.filter.fragment;
+package br.jus.tre_pa.jbase.groovy.filter.fragment;
 
 import javax.persistence.Query;
 import javax.persistence.TemporalType;
@@ -9,7 +9,7 @@ import javax.persistence.TemporalType;
  * @author jcruz
  *
  */
-public class WhereDatePredicateParam extends AbstractWherePredicateParam {
+class WhereDatePredicateParam extends AbstractWherePredicateParam {
 
 	public WhereDatePredicateParam(int paramIndex, AbstractWherePredicate predicate) {
 		super(paramIndex, predicate);
