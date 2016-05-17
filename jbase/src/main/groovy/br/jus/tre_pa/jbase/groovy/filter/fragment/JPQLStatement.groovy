@@ -1,11 +1,5 @@
 package br.jus.tre_pa.jbase.groovy.filter.fragment;
 
-import java.util.HashMap;
-import java.util.Map;
-
-import org.apache.commons.lang.StringUtils;
-
-import br.jus.tre_pa.jbase.filter.enums.JPQLStatementType;
 
 /**
  * Representa uma declaração JPQL completa.

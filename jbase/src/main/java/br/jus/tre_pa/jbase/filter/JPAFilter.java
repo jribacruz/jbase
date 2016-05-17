@@ -22,5 +22,5 @@ public interface JPAFilter extends Serializable {
 	 * 
 	 * @param q
 	 */
-	void populateQueryParams(Query q);
+	void setupQueryParams(Query q);
 }
