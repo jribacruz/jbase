@@ -13,71 +13,46 @@ import br.jus.tre_pa.jbase.filter.enums.JPQLStatementType;
  * @author jcruz
  *
  */
-public class JPQLStatement extends AbstractJPQLFragment {
+class JPQLStatement extends AbstractJPQLFragment {
 
 	/**
 	 * 
 	 */
-	private Map<JPQLStatementType, String> statements = new HashMap<JPQLStatementType, String>();
+	SelectStatement selectStatement = new SelectStatement();
 
-	private SelectStatement selectStatement;
+	/**
+	 * 
+	 */
+	PathStatement pathStatement = new PathStatement();
 
-	private PathStatement pathStatement;
+	/**
+	 * 
+	 */
+	WhereStatement whereStatement = new WhereStatement();
 
-	private WhereStatement whereStatement;
+	/**
+	 * 
+	 */
+	OrderByStatement orderByStatement = new OrderByStatement();
 
-	private OrderByStatement orderByStatement;
-
-	public JPQLStatement(SelectStatement selectStatement) {
+	JPQLStatement(SelectStatement selectStatement) {
 		super();
 		this.selectStatement = selectStatement;
 	}
 
+	/**
+	 * 
+	 */
 	@Override
-	public String buildJPQLFragment() {
-		getFragments().add(selectStatement.buildJPQLFragment());
-		if (pathStatement != null) {
-			getFragments().add(pathStatement.buildJPQLFragment());
-		}
-		if (this.whereStatement != null) {
-			getFragments().add(whereStatement.buildJPQLFragment());
-		}
-		if (this.orderByStatement != null) {
-			getFragments().add(orderByStatement.buildJPQLFragment());
-		}
-		return joinStatements();
+	String buildJPQLFragment() {
+		return "${selectStatement.buildJPQLFragment()} ${pathStatement.buildJPQLFragment()} ${whereStatement.buildJPQLFragment()} ${orderByStatement.buildJPQLFragment()}"
 	}
 
-	private String joinStatements() {
-		return StringUtils.join(getFragments(), "");
+	/**
+	 * 
+	 * @return
+	 */
+	String buildCountJPQLFragment() {
+		return "${selectStatement.buildCountJPQLFragment()} ${pathStatement.buildJPQLFragment()} ${whereStatement.buildJPQLFragment()}"
 	}
-
-	public PathStatement getPathStatement() {
-		return pathStatement;
-	}
-
-	public void setPathStatement(PathStatement pathStatement) {
-		this.pathStatement = pathStatement;
-	}
-
-	public WhereStatement getWhereStatement() {
-		return whereStatement;
-	}
-
-	public void setWhereStatement(WhereStatement whereStatement) {
-		this.whereStatement = whereStatement;
-	}
-
-	public OrderByStatement getOrderByStatement() {
-		return orderByStatement;
-	}
-
-	public void setOrderByStatement(OrderByStatement orderByStatement) {
-		this.orderByStatement = orderByStatement;
-	}
-
-	public SelectStatement getSelectStatement() {
-		return selectStatement;
-	}
-
 }

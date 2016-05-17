@@ -22,7 +22,7 @@ class OrderByStatement extends AbstractJPQLFragment {
 	 * Monta a declaração OrderBy.
 	 */
 	@Override
-	public String buildJPQLFragment() {
+	String buildJPQLFragment() {
 		return "${orderByExpressions.join(',')}";
 	}
 }

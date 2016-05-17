@@ -19,7 +19,8 @@ class WhereStatement extends AbstractJPQLFragment {
 	JunctionOperatorType junctionOperator = JunctionOperatorType.AND;
 
 	@Override
-	public String buildJPQLFragment() {
-		predicateExpressions.collect { p -> p.buildJPQLFragment() }.join(junctionOperator.name())
+	String buildJPQLFragment() {
+		def wherePredicates = predicateExpressions.collect { p -> p.buildJPQLFragment() }.join(junctionOperator.name())
+		return " where ${wherePredicates} "
 	}
 }

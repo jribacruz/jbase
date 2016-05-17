@@ -27,6 +27,12 @@ class SelectStatement extends AbstractJPQLFragment {
 	 * Entidade da clausula FROM.
 	 */
 	Class<?> entity;
+	
+	
+
+	SelectStatement() {
+		super();
+	}
 
 	SelectStatement(Class<?> entity, String alias) {
 		super();
