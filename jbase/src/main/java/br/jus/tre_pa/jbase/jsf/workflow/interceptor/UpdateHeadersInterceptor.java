@@ -16,7 +16,7 @@ import br.jus.tre_pa.jbase.jsf.workflow.context.UIService;
 import br.jus.tre_pa.jbase.jsf.workflow.utils.InvocationContextUtil;
 
 @Interceptor
-@UpdateHeader
+@UpdateHeaders
 public class UpdateHeadersInterceptor implements Serializable {
 
 	/**
