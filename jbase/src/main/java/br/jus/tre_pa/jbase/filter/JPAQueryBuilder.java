@@ -9,14 +9,14 @@ import javax.persistence.Query;
  * @author jcruz
  *
  */
-public interface JPAFilter extends Serializable {
+public interface JPAQueryBuilder extends Serializable {
 
 	/**
 	 * Retorna a string da query baseada no filtro.
 	 * 
 	 * @return
 	 */
-	String createStringQuery();
+	String buildStringQuery();
 
 	/**
 	 * 
