@@ -1,6 +1,10 @@
 package br.jus.tre_pa.jbase.jsf.validation;
 
 import java.io.Serializable;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 import org.apache.commons.lang.StringUtils;
 
@@ -65,15 +69,34 @@ public abstract class BusinessValidator<T> implements Serializable {
 		}
 	}
 	
+
 	/**
 	 * 
 	 * @param value
 	 * @param messageOnFailure
-	 */	
+	 */
 	protected void failIsAlpha(String value, String messageOnFailure){
 		if (StringUtils.isNotEmpty(value) && StringUtils.isNumeric(value)){
 			fail(messageOnFailure);
 		}
+	}
+	
+	/**
+	 * 
+	 * @param value
+	 * @param messageOnFailure
+	 */
+	protected void failIsValidDate(String value, String messageOnFailure){
+		DateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
+		formatter.setLenient(false);
+		
+		try {
+			formatter.parse(value);
+		} catch (ParseException e) {
+			throw new BusinessValidationException(messageOnFailure);
+		}
+		
+		
 	}
 
 }
