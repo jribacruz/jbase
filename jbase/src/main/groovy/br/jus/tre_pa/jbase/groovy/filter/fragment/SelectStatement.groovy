@@ -26,7 +26,7 @@ class SelectStatement extends AbstractJPQLFragment {
 	/**
 	 * Entidade da clausula FROM.
 	 */
-	Class<?> entity;
+	Class<?> entityClass;
 
 
 
@@ -34,9 +34,9 @@ class SelectStatement extends AbstractJPQLFragment {
 		super();
 	}
 
-	SelectStatement(Class<?> entity, String alias) {
+	SelectStatement(Class<?> entityClass, String alias) {
 		super();
-		this.entity = entity;
+		this.entityClass = entityClass;
 		this.alias = alias;
 	}
 
@@ -46,10 +46,10 @@ class SelectStatement extends AbstractJPQLFragment {
 	@Override
 	String buildJPQLFragment() {
 		if (this.attributes.isEmpty()) {
-			return "select ${alias} from ${entity.simpleName} ${alias}";
+			return "select ${alias} from ${entityClass.simpleName} ${alias}";
 		}
 		def attributesConstructor = attributes.collect {attr -> attr.name}.join(',')
-		return "select new ${entity.simpleName}(${attributesConstructor}) from ${entity.simpleName} ${alias} "
+		return "select new ${entityClass.simpleName}(${attributesConstructor}) from ${entityClass.simpleName} ${alias} "
 	}
 
 	/**
@@ -59,6 +59,6 @@ class SelectStatement extends AbstractJPQLFragment {
 	 * @return
 	 */
 	String buildCountJPQLFragment() {
-		return "select count(${alias}) from ${entity.simpleName} ${alias} "
+		return "select count(${alias}) from ${entityClass.simpleName} ${alias} "
 	}
 }

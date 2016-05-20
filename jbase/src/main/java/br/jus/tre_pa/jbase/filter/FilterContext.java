@@ -3,6 +3,7 @@ package br.jus.tre_pa.jbase.filter;
 import java.io.Serializable;
 
 /**
+ * Gerencia o contexto do Filtro. Matendo na sessão o filtro ativo.
  * 
  * @author jcruz
  *

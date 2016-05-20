@@ -3,6 +3,7 @@ package br.jus.tre_pa.jbase.groovy.filter
 import br.jus.tre_pa.jbase.filter.FilterParser
 import br.jus.tre_pa.jbase.filter.Filterable
 import br.jus.tre_pa.jbase.filter.annotation.Filter
+import br.jus.tre_pa.jbase.groovy.filter.fragment.EntityAttribute
 import br.jus.tre_pa.jbase.groovy.filter.fragment.JPQLStatement
 import br.jus.tre_pa.jbase.groovy.filter.fragment.SelectStatement
 
@@ -17,16 +18,19 @@ class FilterParserImpl implements FilterParser {
 	 * 
 	 */
 	@Override
-	public <F extends Filterable> JPQLStatement parser(F filter) {
+	public <F extends Filterable> JPQLStatement parse(F filter) {
 
 		JPQLStatement statement = new JPQLStatement()
-
-
+		prepareSelectStatement(statement, filter)
+		preparePathStatement(statement, filter)
+		prepareWhereStatement(statement, filter)
+		prepareOrderByStatement(statement, filter)
 
 		return statement
 	}
 
 	/**
+	 * Prepara a região SELECT da JPQL.
 	 * 
 	 * @param statement
 	 * @param filter
@@ -36,6 +40,14 @@ class FilterParserImpl implements FilterParser {
 		Filter annotationFilter = filter.class.getAnnotation(Filter.class)
 
 		selectStatement.alias = annotationFilter.alias()
+		selectStatement.entityClass = annotationFilter.entityClass()
+
+		annotationFilter.projection().each { attr ->
+			EntityAttribute entityAttr = new EntityAttribute(name: attr)
+			selectStatement.attributes << entityAttr
+		}
+
+		statement.selectStatement = selectStatement
 	}
 
 	/**

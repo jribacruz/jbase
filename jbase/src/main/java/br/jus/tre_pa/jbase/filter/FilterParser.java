@@ -13,5 +13,5 @@ public interface FilterParser {
 	 * @param filter
 	 * @return
 	 */
-	<F extends Filterable> JPQLStatement parser(F filter);
+	<F extends Filterable> JPQLStatement parse(F filter);
 }
