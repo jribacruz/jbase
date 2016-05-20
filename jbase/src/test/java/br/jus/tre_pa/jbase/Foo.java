@@ -1,7 +1,9 @@
 package br.jus.tre_pa.jbase;
 
-public class Foo {
+import org.hibernate.validator.constraints.NotEmpty;
 
+public class Foo {
+	@NotEmpty
 	private String name;
 
 	private String desc;

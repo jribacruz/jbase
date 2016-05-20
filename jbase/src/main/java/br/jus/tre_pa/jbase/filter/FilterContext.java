@@ -15,12 +15,12 @@ public interface FilterContext extends Serializable {
 	 * 
 	 * @param filterBean
 	 */
-	<T, F extends Filterable<T>> void active(F filterBean);
+	<F extends Filterable> void active(F filterBean);
 
 	/**
 	 * Retorna o filtro ativo.
 	 * 
 	 * @return
 	 */
-	<T, F extends Filterable<T>> F getActive();
+	<F extends Filterable> F getActive();
 }

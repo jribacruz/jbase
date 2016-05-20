@@ -14,7 +14,7 @@ import br.jus.tre_pa.jbase.filter.enums.JunctionOperatorType;
  */
 @Retention(RetentionPolicy.RUNTIME)
 @Target(ElementType.FIELD)
-public @interface FilterMap {
+public @interface FilterAttributesMap {
 
 	/**
 	 * 

@@ -1,4 +1,4 @@
-package br.jus.tre_pa.jbase.groovy.filter.fragment;
+package br.jus.tre_pa.jbase.groovy.filter.fragment
 
 
 /**
@@ -12,26 +12,32 @@ class JPQLStatement extends AbstractJPQLFragment {
 	/**
 	 * 
 	 */
-	SelectStatement selectStatement = new SelectStatement();
+	SelectStatement selectStatement = new SelectStatement()
 
 	/**
 	 * 
 	 */
-	PathStatement pathStatement = new PathStatement();
+	PathStatement pathStatement = new PathStatement()
 
 	/**
 	 * 
 	 */
-	WhereStatement whereStatement = new WhereStatement();
+	WhereStatement whereStatement = new WhereStatement()
 
 	/**
 	 * 
 	 */
-	OrderByStatement orderByStatement = new OrderByStatement();
+	OrderByStatement orderByStatement = new OrderByStatement()
+
+
+
+	public JPQLStatement() {
+		super()
+	}
 
 	JPQLStatement(SelectStatement selectStatement) {
-		super();
-		this.selectStatement = selectStatement;
+		super()
+		this.selectStatement = selectStatement
 	}
 
 	/**

@@ -10,7 +10,7 @@ import br.jus.tre_pa.jbase.filter.FilterContext;
 import br.jus.tre_pa.jbase.filter.Filterable;
 import br.jus.tre_pa.jbase.jsf.workflow.context.UIService;
 
-public class FilterPageBean<T, F extends Filterable<T>> implements Serializable {
+public class FilterPageBean<F extends Filterable> implements Serializable {
 
 	/**
 	 * 

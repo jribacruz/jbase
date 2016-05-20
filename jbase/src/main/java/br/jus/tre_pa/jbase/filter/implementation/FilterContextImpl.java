@@ -16,13 +16,13 @@ public class FilterContextImpl implements FilterContext {
 	private Object filterBean;
 
 	@Override
-	public <T, F extends Filterable<T>> void active(F filterBean) {
+	public <F extends Filterable> void active(F filterBean) {
 		this.filterBean = filterBean;
 	}
 
 	@Override
 	@SuppressWarnings("unchecked")
-	public <T, F extends Filterable<T>> F getActive() {
+	public <F extends Filterable> F getActive() {
 		return (F) filterBean;
 	}
 
