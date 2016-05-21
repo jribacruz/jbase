@@ -23,6 +23,7 @@ class PathStatement extends AbstractJPQLFragment {
 	 */
 	@Override
 	String buildJPQLFragment() {
-		paths.collect { p ->  p.buildJPQLFragment() }.join('')
+		//paths.collect { p ->  p.buildJPQLFragment() }.join('')
+		paths.collect { it.buildJPQLFragment() }.join('')
 	}
 }

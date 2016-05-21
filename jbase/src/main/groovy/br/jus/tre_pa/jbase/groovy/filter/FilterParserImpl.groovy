@@ -24,66 +24,10 @@ class FilterParserImpl implements FilterParser {
 	public <F extends Filterable> JPQLStatement parse(F filter) {
 
 		JPQLStatement statement = new JPQLStatement()
-		prepareSelectStatement(statement, filter)
-		preparePathStatement(statement, filter)
-		prepareWhereStatement(statement, filter)
-		prepareOrderByStatement(statement, filter)
-
+		new SelectPrepareStatement().prepare(statement, filter)
+		new PathPrepareStatement().prepare(statement, filter)
+		new WherePrepareStatement().prepare(statement, filter)
+		new OrderByPrepareStatement().prepare(statement, filter)
 		return statement
-	}
-
-	/**
-	 * Prepara a região SELECT da JPQL.
-	 * 
-	 * @param statement
-	 * @param filter
-	 */
-	private <F extends Filterable>void prepareSelectStatement(JPQLStatement statement, F filter) {
-		SelectStatement selectStatement = new SelectStatement()
-		Filter annotationFilter = filter.class.getAnnotation(Filter.class)
-
-		selectStatement.alias = annotationFilter.alias()
-		selectStatement.entityClass = annotationFilter.entityClass()
-
-		annotationFilter.projection().each { attr ->
-			selectStatement.attributes << new EntityAttribute(name: attr)
-		}
-
-		statement.selectStatement = selectStatement
-	}
-
-	/**
-	 * 
-	 * @param statement
-	 * @param filter
-	 */
-	private <F extends Filterable>void preparePathStatement(JPQLStatement statement, F filter) {
-	}
-
-	/**
-	 * 
-	 * @param statement
-	 * @param filter
-	 */
-	private <F extends Filterable>void prepareWhereStatement(JPQLStatement statement, F filter) {
-		WhereStatement whereStatement = new WhereStatement()
-
-		def notNullFields =  {Field field -> field.get(filter) != null}
-
-		/* Itera sobre todos os atributos do filtro cujo valores sejam diferentes de null */
-		filter.class.declaredFields.every(notNullFields).each { Field field ->
-			Class<?> fieldType = field.type
-
-			if(fieldType == String.class) {
-			}
-		}
-	}
-
-	/**
-	 * 
-	 * @param statement
-	 * @param filter
-	 */
-	private <F extends Filterable>void prepareOrderByStatement(JPQLStatement statement, F filter) {
 	}
 }

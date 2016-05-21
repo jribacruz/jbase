@@ -20,7 +20,7 @@ class WhereStatement extends AbstractJPQLFragment {
 
 	@Override
 	String buildJPQLFragment() {
-		def wherePredicates = predicateExpressions.collect { p -> p.buildJPQLFragment() }.join(junctionOperator.name())
+		def wherePredicates = predicateExpressions.collect { it.buildJPQLFragment() }.join(junctionOperator.name())
 		return predicateExpressions.isEmpty() ? "": " where ${wherePredicates} "
 	}
 }
