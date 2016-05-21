@@ -46,8 +46,7 @@ class FilterParserImpl implements FilterParser {
 		selectStatement.entityClass = annotationFilter.entityClass()
 
 		annotationFilter.projection().each { attr ->
-			EntityAttribute entityAttr = new EntityAttribute(name: attr)
-			selectStatement.attributes << entityAttr
+			selectStatement.attributes << new EntityAttribute(name: attr)
 		}
 
 		statement.selectStatement = selectStatement
