@@ -19,9 +19,11 @@ public abstract class AbstractSingleSelectionDialogPageBean<T, R> implements Ser
 
 	private List<R> source;
 
-	private T bean;
+	private T parentBean;
+	
+	private R selectedBean;
 
-	private Class<T> beanClass;
+	private Class<T> parentBeanClass;
 
 	protected abstract List<R> handleSource();
 
@@ -29,8 +31,8 @@ public abstract class AbstractSingleSelectionDialogPageBean<T, R> implements Ser
 	@UpdateHeader
 	@UpdateBody
 	@UpdateFooter
-	public String load(T bean) {
-		this.setBean(bean);
+	public String load(T parentBean) {
+		this.setParentBean(parentBean);
 		return null;
 	}
 
@@ -43,23 +45,23 @@ public abstract class AbstractSingleSelectionDialogPageBean<T, R> implements Ser
 		this.source = null;
 	}
 
-	protected void setBean(T bean) {
-		this.bean = bean;
+	protected void setParentBean(T parentBean) {
+		this.parentBean = parentBean;
 	}
 
-	public T getBean() {
-		if (bean == null) {
-			bean = Reflections.instantiate(this.getBeanClass());
+	public T getParentBean() {
+		if (parentBean == null) {
+			parentBean = Reflections.instantiate(this.getParentBeanClass());
 		}
-		return bean;
+		return parentBean;
 	}
 
-	protected Class<T> getBeanClass() {
-		if (this.beanClass == null) {
-			this.beanClass = Reflections.getGenericTypeArgument(this.getClass(), 0);
+	protected Class<T> getParentBeanClass() {
+		if (this.parentBeanClass == null) {
+			this.parentBeanClass = Reflections.getGenericTypeArgument(this.getClass(), 0);
 		}
 
-		return this.beanClass;
+		return this.parentBeanClass;
 	}
 
 	public List<R> getSource() {
@@ -68,5 +70,15 @@ public abstract class AbstractSingleSelectionDialogPageBean<T, R> implements Ser
 		}
 		return source;
 	}
+
+	public R getSelectedBean() {
+		return selectedBean;
+	}
+
+	public void setSelectedBean(R selectedBean) {
+		this.selectedBean = selectedBean;
+	}
+	
+	
 
 }

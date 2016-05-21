@@ -123,6 +123,20 @@ public abstract class AbstractMultipleSelectionDialogPageBean<T, R> implements S
 		model.getTarget().remove(item);
 		model.getSource().add(item);
 	}
+	
+	@UpdateBody
+	public String selectAll() {
+		model.getTarget().addAll(model.getSource());
+		model.getSource().clear();
+		return null;
+	}
+	
+	@UpdateBody
+	public String deselectAll() {
+		model.getSource().addAll(model.getTarget());
+		model.getTarget().clear();
+		return null;
+	}
 
 	/**
 	 * 

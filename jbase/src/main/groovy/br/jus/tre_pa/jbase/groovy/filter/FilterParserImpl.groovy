@@ -1,11 +1,14 @@
 package br.jus.tre_pa.jbase.groovy.filter
 
+import java.lang.reflect.Field
+
 import br.jus.tre_pa.jbase.filter.FilterParser
 import br.jus.tre_pa.jbase.filter.Filterable
 import br.jus.tre_pa.jbase.filter.annotation.Filter
 import br.jus.tre_pa.jbase.groovy.filter.fragment.EntityAttribute
 import br.jus.tre_pa.jbase.groovy.filter.fragment.JPQLStatement
 import br.jus.tre_pa.jbase.groovy.filter.fragment.SelectStatement
+import br.jus.tre_pa.jbase.groovy.filter.fragment.WhereStatement
 
 /**
  * 
@@ -64,9 +67,16 @@ class FilterParserImpl implements FilterParser {
 	 * @param filter
 	 */
 	private <F extends Filterable>void prepareWhereStatement(JPQLStatement statement, F filter) {
+		WhereStatement whereStatement = new WhereStatement()
 
-		/* Itera sobre todos os atributos do filtro */
-		filter.class.declaredFields.each { field ->
+		def notNullFields =  {Field field -> field.get(filter) != null}
+
+		/* Itera sobre todos os atributos do filtro cujo valores sejam diferentes de null */
+		filter.class.declaredFields.every(notNullFields).each { Field field ->
+			Class<?> fieldType = field.type
+
+			if(fieldType == String.class) {
+			}
 		}
 	}
 

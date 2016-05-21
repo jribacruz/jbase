@@ -10,6 +10,7 @@ import javax.interceptor.InvocationContext;
 import br.gov.frameworkdemoiselle.message.MessageContext;
 import br.jus.tre_pa.jbase.jsf.validation.annotation.JSFValidationHandler;
 import br.jus.tre_pa.jbase.jsf.validation.context.BusinessValidatorContext;
+import br.jus.tre_pa.jbase.jsf.validation.exception.BusinessValidationException;
 import br.jus.tre_pa.jbase.jsf.validation.model.BusinessValidationErrorItem;
 import br.jus.tre_pa.jbase.jsf.workflow.context.UIService;
 
@@ -36,12 +37,11 @@ public class JSFValidationHandlerInterceptor implements Serializable {
 		Object ret = null;
 		try {
 			ret = ic.proceed();
-			if (validatorContext.isValidationFailed()) {
-				for (BusinessValidationErrorItem item : validatorContext.getErrors()) {
-					messageContext.add(item.getMessage());
-				}
-				uiservice.showError();
+		} catch (BusinessValidationException e) {
+			for (BusinessValidationErrorItem item : validatorContext.getErrors()) {
+				messageContext.add(item.getMessage());
 			}
+			uiservice.showError();
 		} catch (Exception e) {
 			messageContext.add(e.getMessage());
 			uiservice.showError();
