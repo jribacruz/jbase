@@ -20,6 +20,8 @@ public interface JPAQueryBuilder extends Serializable {
 
 	/**
 	 * 
+	 * Inicializa os parâmetros da query.
+	 * 
 	 * @param q
 	 */
 	void setupQueryParams(Query q);
