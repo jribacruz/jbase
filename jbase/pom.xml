@@ -9,7 +9,7 @@
 	<groupId>br.jus.tre_pa.jbase</groupId>
 	<artifactId>jbase</artifactId>
 	<packaging>jar</packaging>
-	<version>1.7</version>
+	<version>1.8-BETA</version>
 
 	<name></name>
 	<description></description>
@@ -97,6 +97,7 @@
 			<groupId>org.hibernate</groupId>
 			<artifactId>hibernate-core</artifactId>
 			<version>4.1.7.Final</version>
+			<scope>provided</scope>
 		</dependency>
 		<!-- GROOVY -->
 		<dependency>
