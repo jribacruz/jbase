@@ -4,8 +4,11 @@ import java.lang.reflect.Field
 
 import br.jus.tre_pa.jbase.filter.Filterable
 import br.jus.tre_pa.jbase.filter.PrepareStatement
+import br.jus.tre_pa.jbase.filter.annotation.FilterAttribute
 import br.jus.tre_pa.jbase.groovy.filter.fragment.JPQLStatement
+import br.jus.tre_pa.jbase.groovy.filter.fragment.WherePredicateExpression
 import br.jus.tre_pa.jbase.groovy.filter.fragment.WhereStatement
+import br.jus.tre_pa.jbase.groovy.filter.fragment.WhereStringPredicateParam
 
 /**
  * 
@@ -15,6 +18,8 @@ import br.jus.tre_pa.jbase.groovy.filter.fragment.WhereStatement
 class WherePrepareStatement implements PrepareStatement {
 
 	WhereStatement whereStatement = new WhereStatement()
+
+	int paramIndexCount = 1
 
 	/**
 	 * 
@@ -28,10 +33,23 @@ class WherePrepareStatement implements PrepareStatement {
 			if(fieldType == String.class) {
 				processStringField(field)
 			}
+			paramIndexCount++
 		}
 	}
 
 	/* Processa atributo do tipo String */
 	private void processStringField(Field f) {
+		WherePredicateExpression exp = new WherePredicateExpression()
+		
+		
+
+		//WhereStringPredicateParam param = new WhereStringPredicateParam(paramIndexCount, predicate)
+	}
+
+	private String extractAttributeName(Field f) {
+		if(f.isAnnotationPresent(FilterAttribute.class)) {
+			return f.getAnnotation(FilterAttribute.class).name()
+		}
+		return f.name
 	}
 }

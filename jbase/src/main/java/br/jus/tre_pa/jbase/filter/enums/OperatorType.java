@@ -9,82 +9,89 @@ public enum OperatorType implements Operator {
 	/**
 	 * 
 	 */
-	IS_TRUE("is true"),
+	IS_TRUE("is true", true),
 	/**
 	 * 
 	 */
-	IS_NOT_TRUE("is not true"),
+	IS_NOT_TRUE("is not true", true),
 	/**
 	 * 
 	 */
-	IS_FALSE("is false"),
+	IS_FALSE("is false", true),
 	/**
 	 * 
 	 */
-	IS_NOT_FALSE("is not false"),
+	IS_NOT_FALSE("is not false", true),
 	/**
 	 * 
 	 */
-	IS_NULL("is null"),
+	IS_NULL("is null", true),
 	/**
 	 * 
 	 */
-	IS_NOT_NULL("is not null"),
+	IS_NOT_NULL("is not null", true),
 	/**
 	 * 
 	 */
-	EQUAL("="),
+	EQUAL("=", false),
 	/**
 	 * 
 	 */
-	NOT_EQUAL("<>"),
+	NOT_EQUAL("<>", false),
 	/**
 	 * 
 	 */
-	GREATER_THAN(">"),
+	GREATER_THAN(">", false),
 	/**
 	 * 
 	 */
-	GREATER_THAN_OR_EQUAL_TO(">="),
+	GREATER_THAN_OR_EQUAL_TO(">=", false),
 	/**
 	 * 
 	 */
-	LESS_THAN("<"),
+	LESS_THAN("<", false),
 	/**
 	 * 
 	 */
-	LESS_THAN_OR_EQUAL_TO("<="),
+	LESS_THAN_OR_EQUAL_TO("<=", false),
 	/**
 	 * 
 	 */
-	LIKE("like"),
+	LIKE("like",false),
 	/**
 	 * 
 	 */
-	NOT_LIKE("not like"),
+	NOT_LIKE("not like", false),
 	/**
 	 * 
 	 */
-	IN("in"),
+	IN("in", false),
 	/**
 	 * 
 	 */
-	NOT_IN("not in"),
+	NOT_IN("not in", false),
 
 	/**
 	 * 
 	 */
-	DEFAULT("");
+	DEFAULT("", false);
+
+	private boolean unary;
 
 	private String representation;
 
-	private OperatorType(String representation) {
+	private OperatorType(String representation, boolean unary) {
 		this.representation = representation;
+		this.unary = unary;
 	}
 
 	@Override
 	public String getRepresentation() {
 		return this.representation;
+	}
+
+	public boolean isUnary() {
+		return unary;
 	}
 
 }
