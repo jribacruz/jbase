@@ -9,7 +9,7 @@
 	<groupId>br.jus.tre_pa.jbase</groupId>
 	<artifactId>jbase</artifactId>
 	<packaging>jar</packaging>
-	<version>1.7</version>
+	<version>1.8-BETA</version>
 
 	<name></name>
 	<description></description>
@@ -52,6 +52,12 @@
 			<groupId>javax.enterprise</groupId>
 			<artifactId>cdi-api</artifactId>
 		</dependency>
+		<!-- JPA API -->
+		<dependency>
+			<groupId>org.hibernate.javax.persistence</groupId>
+			<artifactId>hibernate-jpa-2.0-api</artifactId>
+			<version>1.0.1.Final</version>
+		</dependency>
 		<!-- PRIMEFACES -->
 		<dependency>
 			<groupId>org.primefaces</groupId>
@@ -70,19 +76,64 @@
 			<groupId>br.gov.frameworkdemoiselle</groupId>
 			<artifactId>demoiselle-servlet</artifactId>
 		</dependency>
-		<!-- Joda-Time -->
+		<!-- JODA TIME -->
 		<dependency>
 			<groupId>joda-time</groupId>
 			<artifactId>joda-time</artifactId>
 			<version>2.9.2</version>
 		</dependency>
+		<!-- GOOGLE GUAVA -->
 		<dependency>
 			<groupId>com.google.guava</groupId>
 			<artifactId>guava</artifactId>
 			<version>11.0.2</version>
 		</dependency>
-
+		<!-- COMMONS BEANS -->
+		<dependency>
+			<groupId>commons-beanutils</groupId>
+			<artifactId>commons-beanutils</artifactId>
+			<version>1.9.2</version>
+		</dependency>
+		<!-- HIBERNATE CORE -->
+		<dependency>
+			<groupId>org.hibernate</groupId>
+			<artifactId>hibernate-core</artifactId>
+			<version>4.1.7.Final</version>
+			<scope>provided</scope>
+		</dependency>
+		<!-- GROOVY -->
+		<dependency>
+			<groupId>org.codehaus.groovy</groupId>
+			<artifactId>groovy-all</artifactId>
+			<version>2.4.3</version>
+		</dependency>
 	</dependencies>
+
+	<build>
+		<plugins>
+			<plugin>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<!-- 2.8.0-01 and later require maven-compiler-plugin 3.1 or higher -->
+				<version>3.1</version>
+				<configuration>
+					<compilerId>groovy-eclipse-compiler</compilerId>
+				</configuration>
+				<dependencies>
+					<dependency>
+						<groupId>org.codehaus.groovy</groupId>
+						<artifactId>groovy-eclipse-compiler</artifactId>
+						<version>2.9.2-01</version>
+					</dependency>
+					<!-- for 2.8.0-01 and later you must have an explicit dependency on groovy-eclipse-batch -->
+					<dependency>
+						<groupId>org.codehaus.groovy</groupId>
+						<artifactId>groovy-eclipse-batch</artifactId>
+						<version>2.4.3-01</version>
+					</dependency>
+				</dependencies>
+			</plugin>
+		</plugins>
+	</build>
 
 	<distributionManagement>
 		<repository>
@@ -94,5 +145,6 @@
 			<url>http://nexus.tre-pa.gov.br:8090/nexus/content/repositories/snapshots/</url>
 		</snapshotRepository>
 	</distributionManagement>
+
 
 </project>

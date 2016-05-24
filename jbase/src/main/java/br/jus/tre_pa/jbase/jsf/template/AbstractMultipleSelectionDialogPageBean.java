@@ -155,13 +155,15 @@ public abstract class AbstractMultipleSelectionDialogPageBean<T, R> implements S
 	 * 
 	 */
 	private void removeDeselectedsFromBean() {
-		ListIterator<R> iter = handleTarget().listIterator();
-		while (iter.hasNext()) {
-			R item = iter.next();
-			if (!model.getTarget().contains(item)) {
-				iter.remove();
-				log.debug("[removeDeselectedsFromBean] Item removido: {}", item);
-			}
+		if (handleTarget().size() > 0) {
+			ListIterator<R> iter = handleTarget().listIterator();
+			while (iter.hasNext()) {
+				R item = iter.next();
+				if (!model.getTarget().contains(item)) {
+					iter.remove();
+					log.debug("[removeDeselectedsFromBean] Item removido: {}", item);
+				}
+			} 
 		}
 	}
 
