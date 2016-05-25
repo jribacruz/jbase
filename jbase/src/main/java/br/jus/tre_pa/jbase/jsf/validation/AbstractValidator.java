@@ -4,7 +4,6 @@ import java.io.Serializable;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.Date;
 
 import org.apache.commons.lang.StringUtils;
 
@@ -19,7 +18,7 @@ import br.jus.tre_pa.jbase.jsf.validation.exception.BusinessValidationException;
  * @param <T>
  *            Entidade que será validada.
  */
-public abstract class BusinessValidator<T> implements Serializable {
+public abstract class AbstractValidator<T> implements Serializable {
 
 	/**
 	 * 

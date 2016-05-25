@@ -12,7 +12,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 @XmlRootElement
 @XmlAccessorType(XmlAccessType.FIELD)
-public class BusinessValidationError implements Serializable {
+public class ValidationError implements Serializable {
 
 	/**
 	 * 
@@ -21,20 +21,20 @@ public class BusinessValidationError implements Serializable {
 
 	@XmlElementWrapper(name = "errors")
 	@XmlElement(name = "error")
-	private List<BusinessValidationErrorItem> errorList;
+	private List<ValidationErrorItem> errorList;
 
-	public BusinessValidationError() {
+	public ValidationError() {
 		super();
 	}
 
-	public List<BusinessValidationErrorItem> getErrorList() {
+	public List<ValidationErrorItem> getErrorList() {
 		if (this.errorList == null) {
-			this.errorList = new ArrayList<BusinessValidationErrorItem>();
+			this.errorList = new ArrayList<ValidationErrorItem>();
 		}
 		return errorList;
 	}
 
-	public void setErrorList(List<BusinessValidationErrorItem> errors) {
+	public void setErrorList(List<ValidationErrorItem> errors) {
 		this.errorList = errors;
 	}
 

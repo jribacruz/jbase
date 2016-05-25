@@ -3,9 +3,14 @@ package br.jus.tre_pa.jbase.jsf.validation.context;
 import java.io.Serializable;
 import java.util.List;
 
-import br.jus.tre_pa.jbase.jsf.validation.model.BusinessValidationErrorItem;
+import br.jus.tre_pa.jbase.jsf.validation.model.ValidationErrorItem;
 
-public interface BusinessValidatorContext extends Serializable {
+/**
+ * 
+ * @author jcruz
+ *
+ */
+public interface ValidationContext extends Serializable {
 
 	/**
 	 * 
@@ -33,5 +38,5 @@ public interface BusinessValidatorContext extends Serializable {
 	 * 
 	 * @return
 	 */
-	List<BusinessValidationErrorItem> getErrors();
+	List<ValidationErrorItem> getErrors();
 }

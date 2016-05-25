@@ -7,12 +7,12 @@ import java.io.Serializable;
  * @author jcruz
  *
  */
-public interface BusinessValidatorManager<T> extends Serializable {
+public interface ValidationManager extends Serializable {
 
 	/**
 	 * 
 	 * @param bean
 	 */
-	void validate(T bean);
+	<T> void validate(T bean);
 
 }

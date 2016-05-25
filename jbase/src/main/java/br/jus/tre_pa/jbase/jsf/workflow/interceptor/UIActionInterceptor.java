@@ -20,7 +20,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import br.gov.frameworkdemoiselle.util.Beans;
-import br.jus.tre_pa.jbase.jsf.validation.context.BusinessValidatorContext;
+import br.jus.tre_pa.jbase.jsf.validation.context.ValidationContext;
 import br.jus.tre_pa.jbase.jsf.workflow.annotation.UIAction;
 import br.jus.tre_pa.jbase.jsf.workflow.annotation.UIActionPattern;
 import br.jus.tre_pa.jbase.jsf.workflow.base.EventTargetBean;
@@ -55,7 +55,7 @@ public class UIActionInterceptor implements Serializable {
 	private UIService service;
 
 	@Inject
-	private BusinessValidatorContext businessValidatorContext;
+	private ValidationContext businessValidatorContext;
 
 	private Map<String, String> context;
 

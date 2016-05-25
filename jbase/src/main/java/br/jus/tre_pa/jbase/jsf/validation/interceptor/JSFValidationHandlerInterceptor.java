@@ -9,9 +9,9 @@ import javax.interceptor.InvocationContext;
 
 import br.gov.frameworkdemoiselle.message.MessageContext;
 import br.jus.tre_pa.jbase.jsf.validation.annotation.JSFValidationHandler;
-import br.jus.tre_pa.jbase.jsf.validation.context.BusinessValidatorContext;
+import br.jus.tre_pa.jbase.jsf.validation.context.ValidationContext;
 import br.jus.tre_pa.jbase.jsf.validation.exception.BusinessValidationException;
-import br.jus.tre_pa.jbase.jsf.validation.model.BusinessValidationErrorItem;
+import br.jus.tre_pa.jbase.jsf.validation.model.ValidationErrorItem;
 import br.jus.tre_pa.jbase.jsf.workflow.context.UIService;
 
 @Interceptor
@@ -24,7 +24,7 @@ public class JSFValidationHandlerInterceptor implements Serializable {
 	private static final long serialVersionUID = -1222146161745214626L;
 
 	@Inject
-	private BusinessValidatorContext validatorContext;
+	private ValidationContext validatorContext;
 
 	@Inject
 	private MessageContext messageContext;
@@ -38,7 +38,7 @@ public class JSFValidationHandlerInterceptor implements Serializable {
 		try {
 			ret = ic.proceed();
 		} catch (BusinessValidationException e) {
-			for (BusinessValidationErrorItem item : validatorContext.getErrors()) {
+			for (ValidationErrorItem item : validatorContext.getErrors()) {
 				messageContext.add(item.getMessage());
 			}
 			uiservice.showError();

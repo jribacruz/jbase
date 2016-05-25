@@ -4,9 +4,9 @@ import java.util.List;
 
 import javax.enterprise.context.SessionScoped;
 
-import br.jus.tre_pa.jbase.jsf.validation.context.BusinessValidatorContext;
-import br.jus.tre_pa.jbase.jsf.validation.model.BusinessValidationError;
-import br.jus.tre_pa.jbase.jsf.validation.model.BusinessValidationErrorItem;
+import br.jus.tre_pa.jbase.jsf.validation.context.ValidationContext;
+import br.jus.tre_pa.jbase.jsf.validation.model.ValidationError;
+import br.jus.tre_pa.jbase.jsf.validation.model.ValidationErrorItem;
 
 /**
  * 
@@ -14,7 +14,7 @@ import br.jus.tre_pa.jbase.jsf.validation.model.BusinessValidationErrorItem;
  *
  */
 @SessionScoped
-public class BusinessValidatorContextImpl implements BusinessValidatorContext {
+public class ValidationContextImpl implements ValidationContext {
 
 	/**
 	 * 
@@ -26,7 +26,7 @@ public class BusinessValidatorContextImpl implements BusinessValidatorContext {
 	/**
 	 * 
 	 */
-	private BusinessValidationError errors = new BusinessValidationError();
+	private ValidationError errors = new ValidationError();
 
 	/**
 	 * 
@@ -54,13 +54,19 @@ public class BusinessValidatorContextImpl implements BusinessValidatorContext {
 		this.errors.getErrorList().clear();
 	}
 
+	/**
+	 * 
+	 */
 	@Override
 	public void addMessage(String message) {
-		this.errors.getErrorList().add(new BusinessValidationErrorItem(message));
+		this.errors.getErrorList().add(new ValidationErrorItem(message));
 	}
 
+	/**
+	 * 
+	 */
 	@Override
-	public List<BusinessValidationErrorItem> getErrors() {
+	public List<ValidationErrorItem> getErrors() {
 		return this.errors.getErrorList();
 	}
 

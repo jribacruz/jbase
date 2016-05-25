@@ -9,7 +9,7 @@ import javax.interceptor.Interceptor;
 import javax.interceptor.InvocationContext;
 
 import br.gov.frameworkdemoiselle.util.Strings;
-import br.jus.tre_pa.jbase.jsf.validation.context.BusinessValidatorContext;
+import br.jus.tre_pa.jbase.jsf.validation.context.ValidationContext;
 import br.jus.tre_pa.jbase.jsf.workflow.annotation.Show;
 import br.jus.tre_pa.jbase.jsf.workflow.context.UIService;
 import br.jus.tre_pa.jbase.jsf.workflow.utils.InvocationContextUtil;
@@ -27,7 +27,7 @@ public class ShowInterceptor implements Serializable {
 	private UIService service;
 
 	@Inject
-	private BusinessValidatorContext businessValidatorContext;
+	private ValidationContext businessValidatorContext;
 
 	@AroundInvoke
 	public Object invoke(InvocationContext ic) throws Exception {

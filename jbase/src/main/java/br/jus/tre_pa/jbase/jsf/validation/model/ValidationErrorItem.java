@@ -9,7 +9,7 @@ import javax.xml.bind.annotation.XmlType;
 
 @XmlType
 @XmlAccessorType(XmlAccessType.FIELD)
-public class BusinessValidationErrorItem implements Serializable {
+public class ValidationErrorItem implements Serializable {
 
 	/**
 	 * 
@@ -19,7 +19,7 @@ public class BusinessValidationErrorItem implements Serializable {
 	@XmlElement
 	private String message;
 
-	public BusinessValidationErrorItem(String message) {
+	public ValidationErrorItem(String message) {
 		super();
 		this.message = message;
 	}
@@ -48,7 +48,7 @@ public class BusinessValidationErrorItem implements Serializable {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		BusinessValidationErrorItem other = (BusinessValidationErrorItem) obj;
+		ValidationErrorItem other = (ValidationErrorItem) obj;
 		if (message == null) {
 			if (other.message != null)
 				return false;
