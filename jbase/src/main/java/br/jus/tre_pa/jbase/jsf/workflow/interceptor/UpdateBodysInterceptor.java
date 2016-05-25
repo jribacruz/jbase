@@ -9,6 +9,7 @@ import javax.interceptor.Interceptor;
 import javax.interceptor.InvocationContext;
 
 import br.gov.frameworkdemoiselle.util.Strings;
+import br.jus.tre_pa.jbase.jsf.validation.context.ValidationContext;
 import br.jus.tre_pa.jbase.jsf.workflow.annotation.UpdateBody;
 import br.jus.tre_pa.jbase.jsf.workflow.annotation.UpdateBodys;
 import br.jus.tre_pa.jbase.jsf.workflow.context.UIService;
@@ -26,12 +27,15 @@ public class UpdateBodysInterceptor implements Serializable {
 	@Inject
 	private UIService service;
 
+	@Inject
+	private ValidationContext validatorContext;
+
 	@AroundInvoke
 	public Object invoke(InvocationContext ic) throws Exception {
 		Object ret = ic.proceed();
-		if (!FacesContext.getCurrentInstance().isValidationFailed()) {
+		if (!FacesContext.getCurrentInstance().isValidationFailed() && !validatorContext.isValidationFailed()) {
 			UpdateBodys bodys = ic.getMethod().getAnnotation(UpdateBodys.class);
-			for(UpdateBody body: bodys.value()) {
+			for (UpdateBody body : bodys.value()) {
 				processUpdateBody(ic, body);
 			}
 		}

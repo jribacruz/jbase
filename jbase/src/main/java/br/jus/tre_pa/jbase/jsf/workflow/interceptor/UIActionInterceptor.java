@@ -55,7 +55,7 @@ public class UIActionInterceptor implements Serializable {
 	private UIService service;
 
 	@Inject
-	private ValidationContext businessValidatorContext;
+	private ValidationContext validatorContext;
 
 	private Map<String, String> context;
 
@@ -68,7 +68,7 @@ public class UIActionInterceptor implements Serializable {
 		 * Os processors só serão executados se o estado do FacesContext não
 		 * estiver falho.
 		 */
-		if (!FacesContext.getCurrentInstance().isValidationFailed() && !businessValidatorContext.isValidationFailed()) {
+		if (!FacesContext.getCurrentInstance().isValidationFailed() && !validatorContext.isValidationFailed()) {
 			EventContext eventContext = createEventContext(ic);
 			log.debug(eventContext.toString());
 			Iterator<UIActionProcessor> it = actionProcessors.iterator();

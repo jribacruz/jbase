@@ -27,7 +27,7 @@ public class HideInterceptor implements Serializable {
 	private UIService service;
 
 	@Inject
-	private ValidationContext businessValidatorContext;
+	private ValidationContext validatorContext;
 
 	@AroundInvoke
 	public Object invoke(InvocationContext ic) throws Exception {
@@ -39,7 +39,7 @@ public class HideInterceptor implements Serializable {
 	}
 
 	private boolean isValidationFailed() {
-		return !FacesContext.getCurrentInstance().isValidationFailed() && !businessValidatorContext.isValidationFailed();
+		return !FacesContext.getCurrentInstance().isValidationFailed() && !validatorContext.isValidationFailed();
 	}
 
 	private void processHide(InvocationContext ic) {

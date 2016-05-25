@@ -9,6 +9,7 @@ import javax.interceptor.Interceptor;
 import javax.interceptor.InvocationContext;
 
 import br.gov.frameworkdemoiselle.util.Strings;
+import br.jus.tre_pa.jbase.jsf.validation.context.ValidationContext;
 import br.jus.tre_pa.jbase.jsf.workflow.annotation.UpdateFooter;
 import br.jus.tre_pa.jbase.jsf.workflow.annotation.UpdateFooters;
 import br.jus.tre_pa.jbase.jsf.workflow.context.UIService;
@@ -26,10 +27,13 @@ public class UpdateFootersInterceptor implements Serializable {
 	@Inject
 	private UIService service;
 
+	@Inject
+	private ValidationContext validatorContext;
+
 	@AroundInvoke
 	public Object invoke(InvocationContext ic) throws Exception {
 		Object ret = ic.proceed();
-		if (!FacesContext.getCurrentInstance().isValidationFailed()) {
+		if (!FacesContext.getCurrentInstance().isValidationFailed() && !validatorContext.isValidationFailed()) {
 			UpdateFooters footers = ic.getMethod().getAnnotation(UpdateFooters.class);
 			for (UpdateFooter footer : footers.value()) {
 				processUpdateFooter(ic, footer);

@@ -9,6 +9,7 @@ import javax.interceptor.Interceptor;
 import javax.interceptor.InvocationContext;
 
 import br.gov.frameworkdemoiselle.util.Strings;
+import br.jus.tre_pa.jbase.jsf.validation.context.ValidationContext;
 import br.jus.tre_pa.jbase.jsf.workflow.annotation.UpdateRegion;
 import br.jus.tre_pa.jbase.jsf.workflow.annotation.UpdateRegions;
 import br.jus.tre_pa.jbase.jsf.workflow.context.UIService;
@@ -26,10 +27,13 @@ public class UpdateRegionsInterceptor implements Serializable {
 	@Inject
 	private UIService service;
 
+	@Inject
+	private ValidationContext validatorContext;
+
 	@AroundInvoke
 	public Object invoke(InvocationContext ic) throws Exception {
 		Object ret = ic.proceed();
-		if (!FacesContext.getCurrentInstance().isValidationFailed()) {
+		if (!FacesContext.getCurrentInstance().isValidationFailed() && !validatorContext.isValidationFailed()) {
 			UpdateRegions regions = ic.getMethod().getAnnotation(UpdateRegions.class);
 			for (UpdateRegion updateRegion : regions.value()) {
 				processUpdateRegion(ic, updateRegion);

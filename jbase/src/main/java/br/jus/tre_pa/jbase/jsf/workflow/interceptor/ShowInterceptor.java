@@ -27,13 +27,13 @@ public class ShowInterceptor implements Serializable {
 	private UIService service;
 
 	@Inject
-	private ValidationContext businessValidatorContext;
+	private ValidationContext validatorContext;
 
 	@AroundInvoke
 	public Object invoke(InvocationContext ic) throws Exception {
 		Object ret = null;
 		ret = ic.proceed();
-		if (!FacesContext.getCurrentInstance().isValidationFailed() && !businessValidatorContext.isValidationFailed()) {
+		if (!FacesContext.getCurrentInstance().isValidationFailed() && !validatorContext.isValidationFailed()) {
 			processShow(ic);
 		}
 		return ret;
