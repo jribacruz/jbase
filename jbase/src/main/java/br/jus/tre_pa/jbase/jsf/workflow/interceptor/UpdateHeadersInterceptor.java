@@ -1,7 +1,6 @@
 package br.jus.tre_pa.jbase.jsf.workflow.interceptor;
 
 import javax.inject.Inject;
-import javax.interceptor.AroundInvoke;
 import javax.interceptor.Interceptor;
 import javax.interceptor.InvocationContext;
 
@@ -23,18 +22,12 @@ public class UpdateHeadersInterceptor extends AbstractWorkflowInterceptor {
 	@Inject
 	private UIService service;
 
-	
 	@Override
-	@AroundInvoke
-	public Object invoke(InvocationContext ic) throws Exception {
-		Object ret = ic.proceed();
-		if (!isValidationFailed()) {
-			UpdateHeaders headers = ic.getMethod().getAnnotation(UpdateHeaders.class);
-			for (UpdateHeader header : headers.value()) {
-				processUpdateHeader(ic, header);
-			}
+	protected void invokeOnSuccess(InvocationContext ic) {
+		UpdateHeaders headers = ic.getMethod().getAnnotation(UpdateHeaders.class);
+		for (UpdateHeader header : headers.value()) {
+			processUpdateHeader(ic, header);
 		}
-		return ret;
 	}
 
 	private String getForClass(InvocationContext ic, UpdateHeader updateHeader) {

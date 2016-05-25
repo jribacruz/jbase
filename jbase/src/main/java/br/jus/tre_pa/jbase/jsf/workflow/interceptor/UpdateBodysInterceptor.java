@@ -1,7 +1,6 @@
 package br.jus.tre_pa.jbase.jsf.workflow.interceptor;
 
 import javax.inject.Inject;
-import javax.interceptor.AroundInvoke;
 import javax.interceptor.Interceptor;
 import javax.interceptor.InvocationContext;
 
@@ -23,16 +22,12 @@ public class UpdateBodysInterceptor extends AbstractWorkflowInterceptor {
 	@Inject
 	private UIService service;
 
-	@AroundInvoke
-	public Object invoke(InvocationContext ic) throws Exception {
-		Object ret = ic.proceed();
-		if (!isValidationFailed()) {
-			UpdateBodys bodys = ic.getMethod().getAnnotation(UpdateBodys.class);
-			for (UpdateBody body : bodys.value()) {
-				processUpdateBody(ic, body);
-			}
+	@Override
+	protected void invokeOnSuccess(InvocationContext ic) {
+		UpdateBodys bodys = ic.getMethod().getAnnotation(UpdateBodys.class);
+		for (UpdateBody body : bodys.value()) {
+			processUpdateBody(ic, body);
 		}
-		return ret;
 	}
 
 	private String getForClass(InvocationContext ic, UpdateBody updateBody) {

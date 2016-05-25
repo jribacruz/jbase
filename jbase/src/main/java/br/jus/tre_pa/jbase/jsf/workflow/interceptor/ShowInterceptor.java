@@ -1,7 +1,6 @@
 package br.jus.tre_pa.jbase.jsf.workflow.interceptor;
 
 import javax.inject.Inject;
-import javax.interceptor.AroundInvoke;
 import javax.interceptor.Interceptor;
 import javax.interceptor.InvocationContext;
 
@@ -23,14 +22,8 @@ public class ShowInterceptor extends AbstractWorkflowInterceptor {
 	private UIService service;
 
 	@Override
-	@AroundInvoke
-	public Object invoke(InvocationContext ic) throws Exception {
-		Object ret = null;
-		ret = ic.proceed();
-		if (!isValidationFailed()) {
-			processShow(ic);
-		}
-		return ret;
+	protected void invokeOnSuccess(InvocationContext ic) {
+		processShow(ic);
 	}
 
 	private String getForClass(InvocationContext ic) {

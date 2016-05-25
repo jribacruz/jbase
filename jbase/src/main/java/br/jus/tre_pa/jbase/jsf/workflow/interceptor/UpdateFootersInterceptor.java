@@ -1,7 +1,6 @@
 package br.jus.tre_pa.jbase.jsf.workflow.interceptor;
 
 import javax.inject.Inject;
-import javax.interceptor.AroundInvoke;
 import javax.interceptor.Interceptor;
 import javax.interceptor.InvocationContext;
 
@@ -24,16 +23,11 @@ public class UpdateFootersInterceptor extends AbstractWorkflowInterceptor {
 	private UIService service;
 
 	@Override
-	@AroundInvoke
-	public Object invoke(InvocationContext ic) throws Exception {
-		Object ret = ic.proceed();
-		if (!isValidationFailed()) {
-			UpdateFooters footers = ic.getMethod().getAnnotation(UpdateFooters.class);
-			for (UpdateFooter footer : footers.value()) {
-				processUpdateFooter(ic, footer);
-			}
+	protected void invokeOnSuccess(InvocationContext ic) {
+		UpdateFooters footers = ic.getMethod().getAnnotation(UpdateFooters.class);
+		for (UpdateFooter footer : footers.value()) {
+			processUpdateFooter(ic, footer);
 		}
-		return ret;
 	}
 
 	private String getForClass(InvocationContext ic, UpdateFooter updateFooter) {

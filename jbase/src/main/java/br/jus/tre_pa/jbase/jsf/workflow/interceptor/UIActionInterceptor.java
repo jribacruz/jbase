@@ -7,9 +7,7 @@ import java.util.regex.Pattern;
 
 import javax.enterprise.inject.Any;
 import javax.enterprise.inject.Instance;
-import javax.faces.context.FacesContext;
 import javax.inject.Inject;
-import javax.interceptor.AroundInvoke;
 import javax.interceptor.Interceptor;
 import javax.interceptor.InvocationContext;
 
@@ -19,7 +17,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import br.gov.frameworkdemoiselle.util.Beans;
-import br.jus.tre_pa.jbase.jsf.validation.context.ValidationContext;
 import br.jus.tre_pa.jbase.jsf.workflow.annotation.UIAction;
 import br.jus.tre_pa.jbase.jsf.workflow.annotation.UIActionPattern;
 import br.jus.tre_pa.jbase.jsf.workflow.base.EventTargetBean;
@@ -53,39 +50,27 @@ public class UIActionInterceptor extends AbstractWorkflowInterceptor {
 	@Inject
 	private UIService service;
 
-	@Inject
-	private ValidationContext validatorContext;
-
 	private Map<String, String> context;
 
 	private Logger log = LoggerFactory.getLogger(UIActionInterceptor.class);
 
 	@Override
-	@AroundInvoke
-	public Object invoke(InvocationContext ic) throws Exception {
-		Object ret = ic.proceed();
-		/*
-		 * Os processors só serão executados se o estado do FacesContext não
-		 * estiver falho.
-		 */
-		if (!FacesContext.getCurrentInstance().isValidationFailed() && !validatorContext.isValidationFailed()) {
-			EventContext eventContext = createEventContext(ic);
-			log.debug(eventContext.toString());
-			Iterator<UIActionProcessor> it = actionProcessors.iterator();
-			while (it.hasNext()) {
-				UIActionProcessor processor = it.next();
-				if (executeProcessor(eventContext, processor)) {
-					break;
-				}
+	protected void invokeOnSuccess(InvocationContext ic) {
+		EventContext eventContext = createEventContext(ic);
+		log.debug(eventContext.toString());
+		Iterator<UIActionProcessor> it = actionProcessors.iterator();
+		while (it.hasNext()) {
+			UIActionProcessor processor = it.next();
+			if (executeProcessor(eventContext, processor)) {
+				break;
 			}
-			processUpdate(ic);
-			processShow(ic);
-			processHide(ic);
-			processExecute(ic);
-			processScrollTo(ic);
-			fireEvent(eventContext);
 		}
-		return ret;
+		processUpdate(ic);
+		processShow(ic);
+		processHide(ic);
+		processExecute(ic);
+		processScrollTo(ic);
+		fireEvent(eventContext);
 	}
 
 	private boolean executeProcessor(EventContext eventContext, UIActionProcessor processor) {

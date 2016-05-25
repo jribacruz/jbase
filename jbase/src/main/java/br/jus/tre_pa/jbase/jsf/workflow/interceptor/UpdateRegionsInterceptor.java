@@ -1,7 +1,6 @@
 package br.jus.tre_pa.jbase.jsf.workflow.interceptor;
 
 import javax.inject.Inject;
-import javax.interceptor.AroundInvoke;
 import javax.interceptor.Interceptor;
 import javax.interceptor.InvocationContext;
 
@@ -23,16 +22,12 @@ public class UpdateRegionsInterceptor extends AbstractWorkflowInterceptor {
 	@Inject
 	private UIService service;
 
-	@AroundInvoke
-	public Object invoke(InvocationContext ic) throws Exception {
-		Object ret = ic.proceed();
-		if (!isValidationFailed()) {
-			UpdateRegions regions = ic.getMethod().getAnnotation(UpdateRegions.class);
-			for (UpdateRegion updateRegion : regions.value()) {
-				processUpdateRegion(ic, updateRegion);
-			}
+	@Override
+	protected void invokeOnSuccess(InvocationContext ic) {
+		UpdateRegions regions = ic.getMethod().getAnnotation(UpdateRegions.class);
+		for (UpdateRegion updateRegion : regions.value()) {
+			processUpdateRegion(ic, updateRegion);
 		}
-		return ret;
 	}
 
 	private String getForClass(InvocationContext ic, UpdateRegion updateRegion) {
