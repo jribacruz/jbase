@@ -8,6 +8,8 @@ import javax.enterprise.inject.Instance;
 import javax.enterprise.inject.Produces;
 import javax.inject.Inject;
 
+import org.slf4j.Logger;
+
 import com.google.common.collect.ArrayListMultimap;
 import com.google.common.collect.Multimap;
 
@@ -37,6 +39,9 @@ public class ValidationManagerImpl implements ValidationManager {
 	@Any
 	private Instance<AbstractValidator<?>> validators;
 
+	@Inject
+	private Logger log;
+
 	/**
 	 * 
 	 */
@@ -57,7 +62,11 @@ public class ValidationManagerImpl implements ValidationManager {
 	@SuppressWarnings("unchecked")
 	@Override
 	public <T> void validate(T bean) {
+		int failCounter = 0;
+		int okCounter = 0;
+		StringBuilder sb = new StringBuilder();
 		validatorContext.clear();
+		sb.append(String.format("\n\nValidators => [%s]\n", bean.getClass().getSimpleName()));
 		if (bean != null) {
 			Class<?> beanClass = bean.getClass();
 			Iterator<AbstractValidator<?>> iterValidatorsForBeanClass = validatorsMap.get(beanClass).iterator();
@@ -71,22 +80,29 @@ public class ValidationManagerImpl implements ValidationManager {
 				 */
 				try {
 					validator.validate(bean);
+					sb.append(String.format("\tValidator %s => [OK]\n", validator.getClass().getSimpleName()));
+					okCounter++;
 				} catch (BusinessValidationException e) {
 					validatorContext.addMessage(e.getMessage());
 					/*
 					 * Torna o estado de validação como falho.
 					 */
 					validatorContext.validationFailed();
+					sb.append(String.format("\tValidator %s => [FAIL]\n", validator.getClass().getSimpleName()));
+					failCounter++;
 				}
 			}
+			sb.append(String.format("Total => [OK=%d], [FAIL=%d] \n", okCounter, failCounter));
 			/*
 			 * Em caso de algum validador falhe uma exception BusinessValidationException é lançada impedindo a chamada do método de negócio
 			 * (insert, update etc...)
 			 */
 			if (validatorContext.isValidationFailed()) {
+				log.debug(sb.toString());
 				throw new BusinessValidationException();
 			}
 		}
+		log.debug(sb.toString());
 	}
 
 	/**
