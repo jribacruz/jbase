@@ -1,15 +1,11 @@
 package br.jus.tre_pa.jbase.jsf.workflow.interceptor;
 
-import java.io.Serializable;
-
-import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import javax.interceptor.AroundInvoke;
 import javax.interceptor.Interceptor;
 import javax.interceptor.InvocationContext;
 
 import br.gov.frameworkdemoiselle.util.Strings;
-import br.jus.tre_pa.jbase.jsf.validation.context.ValidationContext;
 import br.jus.tre_pa.jbase.jsf.workflow.annotation.UpdateBody;
 import br.jus.tre_pa.jbase.jsf.workflow.annotation.UpdateBodys;
 import br.jus.tre_pa.jbase.jsf.workflow.context.UIService;
@@ -17,7 +13,7 @@ import br.jus.tre_pa.jbase.jsf.workflow.utils.InvocationContextUtil;
 
 @Interceptor
 @UpdateBodys
-public class UpdateBodysInterceptor implements Serializable {
+public class UpdateBodysInterceptor extends AbstractWorkflowInterceptor {
 
 	/**
 	 * 
@@ -27,13 +23,10 @@ public class UpdateBodysInterceptor implements Serializable {
 	@Inject
 	private UIService service;
 
-	@Inject
-	private ValidationContext validatorContext;
-
 	@AroundInvoke
 	public Object invoke(InvocationContext ic) throws Exception {
 		Object ret = ic.proceed();
-		if (!FacesContext.getCurrentInstance().isValidationFailed() && !validatorContext.isValidationFailed()) {
+		if (!isValidationFailed()) {
 			UpdateBodys bodys = ic.getMethod().getAnnotation(UpdateBodys.class);
 			for (UpdateBody body : bodys.value()) {
 				processUpdateBody(ic, body);

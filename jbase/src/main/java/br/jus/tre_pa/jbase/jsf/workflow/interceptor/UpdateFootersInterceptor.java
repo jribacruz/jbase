@@ -1,15 +1,11 @@
 package br.jus.tre_pa.jbase.jsf.workflow.interceptor;
 
-import java.io.Serializable;
-
-import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import javax.interceptor.AroundInvoke;
 import javax.interceptor.Interceptor;
 import javax.interceptor.InvocationContext;
 
 import br.gov.frameworkdemoiselle.util.Strings;
-import br.jus.tre_pa.jbase.jsf.validation.context.ValidationContext;
 import br.jus.tre_pa.jbase.jsf.workflow.annotation.UpdateFooter;
 import br.jus.tre_pa.jbase.jsf.workflow.annotation.UpdateFooters;
 import br.jus.tre_pa.jbase.jsf.workflow.context.UIService;
@@ -17,7 +13,7 @@ import br.jus.tre_pa.jbase.jsf.workflow.utils.InvocationContextUtil;
 
 @Interceptor
 @UpdateFooters
-public class UpdateFootersInterceptor implements Serializable {
+public class UpdateFootersInterceptor extends AbstractWorkflowInterceptor {
 
 	/**
 	 * 
@@ -27,13 +23,11 @@ public class UpdateFootersInterceptor implements Serializable {
 	@Inject
 	private UIService service;
 
-	@Inject
-	private ValidationContext validatorContext;
-
+	@Override
 	@AroundInvoke
 	public Object invoke(InvocationContext ic) throws Exception {
 		Object ret = ic.proceed();
-		if (!FacesContext.getCurrentInstance().isValidationFailed() && !validatorContext.isValidationFailed()) {
+		if (!isValidationFailed()) {
 			UpdateFooters footers = ic.getMethod().getAnnotation(UpdateFooters.class);
 			for (UpdateFooter footer : footers.value()) {
 				processUpdateFooter(ic, footer);

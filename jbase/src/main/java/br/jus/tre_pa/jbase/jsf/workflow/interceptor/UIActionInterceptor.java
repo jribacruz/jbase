@@ -1,6 +1,5 @@
 package br.jus.tre_pa.jbase.jsf.workflow.interceptor;
 
-import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
@@ -32,7 +31,7 @@ import br.jus.tre_pa.jbase.jsf.workflow.utils.InvocationContextUtil;
 
 @Interceptor
 @UIAction
-public class UIActionInterceptor implements Serializable {
+public class UIActionInterceptor extends AbstractWorkflowInterceptor {
 
 	/**
 	 * 
@@ -61,6 +60,7 @@ public class UIActionInterceptor implements Serializable {
 
 	private Logger log = LoggerFactory.getLogger(UIActionInterceptor.class);
 
+	@Override
 	@AroundInvoke
 	public Object invoke(InvocationContext ic) throws Exception {
 		Object ret = ic.proceed();

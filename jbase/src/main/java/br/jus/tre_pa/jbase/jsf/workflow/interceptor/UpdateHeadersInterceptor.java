@@ -1,15 +1,11 @@
 package br.jus.tre_pa.jbase.jsf.workflow.interceptor;
 
-import java.io.Serializable;
-
-import javax.faces.context.FacesContext;
 import javax.inject.Inject;
 import javax.interceptor.AroundInvoke;
 import javax.interceptor.Interceptor;
 import javax.interceptor.InvocationContext;
 
 import br.gov.frameworkdemoiselle.util.Strings;
-import br.jus.tre_pa.jbase.jsf.validation.context.ValidationContext;
 import br.jus.tre_pa.jbase.jsf.workflow.annotation.UpdateHeader;
 import br.jus.tre_pa.jbase.jsf.workflow.annotation.UpdateHeaders;
 import br.jus.tre_pa.jbase.jsf.workflow.context.UIService;
@@ -17,7 +13,7 @@ import br.jus.tre_pa.jbase.jsf.workflow.utils.InvocationContextUtil;
 
 @Interceptor
 @UpdateHeaders
-public class UpdateHeadersInterceptor implements Serializable {
+public class UpdateHeadersInterceptor extends AbstractWorkflowInterceptor {
 
 	/**
 	 * 
@@ -27,15 +23,14 @@ public class UpdateHeadersInterceptor implements Serializable {
 	@Inject
 	private UIService service;
 
-	@Inject
-	private ValidationContext validatorContext;
-
+	
+	@Override
 	@AroundInvoke
 	public Object invoke(InvocationContext ic) throws Exception {
 		Object ret = ic.proceed();
-		if (!FacesContext.getCurrentInstance().isValidationFailed() && !validatorContext.isValidationFailed()) {
+		if (!isValidationFailed()) {
 			UpdateHeaders headers = ic.getMethod().getAnnotation(UpdateHeaders.class);
-			for(UpdateHeader header: headers.value()) {
+			for (UpdateHeader header : headers.value()) {
 				processUpdateHeader(ic, header);
 			}
 		}
