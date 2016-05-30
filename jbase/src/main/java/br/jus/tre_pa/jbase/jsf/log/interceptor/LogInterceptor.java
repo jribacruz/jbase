@@ -56,8 +56,10 @@ public class LogInterceptor implements Serializable {
 		StringBuilder sb = new StringBuilder();
 		sb.append("Informações de chamada do método: " + getMethodName(ic));
 		sb.append("\n%\t");
+		/* Nome da classe */
 		sb.append("[class: " + ic.getTarget().getClass().getSimpleName());
 		sb.append("\n%\t\t");
+		/* Nome do método */
 		sb.append("method => " + getMethodName(ic));
 		sb.append("\n%\t\t");
 		sb.append("params => (");
