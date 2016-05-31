@@ -43,6 +43,7 @@ public abstract class AbstractWorkflowInterceptor implements Serializable {
 	public Object invoke(InvocationContext ic) throws Exception {
 		Object ret = null;
 		try {
+			validationContext.clear();
 			ret = ic.proceed();
 			if (!isValidationFailed()) {
 				invokeOnSuccess(ic);
