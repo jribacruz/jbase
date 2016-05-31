@@ -9,7 +9,7 @@
 	<groupId>br.jus.tre_pa.jbase</groupId>
 	<artifactId>jbase</artifactId>
 	<packaging>jar</packaging>
-	<version>1.8-BETA-4</version>
+	<version>1.8.0</version>
 
 	<name></name>
 	<description></description>
@@ -101,12 +101,6 @@
 			<version>4.1.7.Final</version>
 			<scope>provided</scope>
 		</dependency>
-		<!-- GROOVY -->
-		<dependency>
-			<groupId>org.codehaus.groovy</groupId>
-			<artifactId>groovy-all</artifactId>
-			<version>2.4.3</version>
-		</dependency>
 	</dependencies>
 
 	<build>
@@ -115,28 +109,9 @@
 				<artifactId>maven-compiler-plugin</artifactId>
 				<!-- 2.8.0-01 and later require maven-compiler-plugin 3.1 or higher -->
 				<version>3.1</version>
-				<configuration>
-					<compilerId>groovy-eclipse-compiler</compilerId>
-				</configuration>
-				<dependencies>
-					<dependency>
-						<groupId>org.codehaus.groovy</groupId>
-						<artifactId>groovy-eclipse-compiler</artifactId>
-						<version>2.9.2-01</version>
-					</dependency>
-					<!-- for 2.8.0-01 and later you must have an explicit dependency on groovy-eclipse-batch -->
-					<dependency>
-						<groupId>org.codehaus.groovy</groupId>
-						<artifactId>groovy-eclipse-batch</artifactId>
-						<version>2.4.3-01</version>
-					</dependency>
-				</dependencies>
 			</plugin>
 		</plugins>
 		<resources>
-			<resource>
-				<directory>src/main/groovy</directory>
-			</resource>
 			<resource>
 				<directory>src/main/resources</directory>
 			</resource>
