@@ -8,6 +8,8 @@ import javax.interceptor.AroundInvoke;
 import javax.interceptor.InvocationContext;
 
 import br.gov.frameworkdemoiselle.message.MessageContext;
+import br.jus.tre_pa.jbase.jsf.confirmation.Confirm;
+import br.jus.tre_pa.jbase.jsf.confirmation.ConfirmationContext;
 import br.jus.tre_pa.jbase.jsf.validation.context.ValidationContext;
 import br.jus.tre_pa.jbase.jsf.validation.exception.BusinessValidationException;
 import br.jus.tre_pa.jbase.jsf.validation.model.ValidationErrorItem;
@@ -31,6 +33,9 @@ public abstract class AbstractWorkflowInterceptor implements Serializable {
 	private MessageContext messageContext;
 
 	@Inject
+	private ConfirmationContext confirmationContext;
+
+	@Inject
 	private UIService uiservice;
 
 	/**
@@ -46,6 +51,14 @@ public abstract class AbstractWorkflowInterceptor implements Serializable {
 			validationContext.clear();
 			ret = ic.proceed();
 			if (!isValidationFailed()) {
+				if (ic.getMethod().isAnnotationPresent(Confirm.class)) {
+					if (confirmationContext.isYesOptionConfirmation()) {
+						invokeOnSuccess(ic);
+						confirmationContext.clear();
+						return ret;
+					}
+					return ret;
+				}
 				invokeOnSuccess(ic);
 				return ret;
 			}
