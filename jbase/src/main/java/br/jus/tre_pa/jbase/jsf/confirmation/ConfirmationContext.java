@@ -6,21 +6,21 @@ import java.lang.reflect.Method;
 
 public interface ConfirmationContext extends Serializable {
 
-	void setMessage(String message);
+	void setMessageConfirmation(String message);
 
-	String getMessage();
+	String getMessageConfirmation();
 
 	void setMethod(Method method);
 
 	void setTarget(Object target);
 
-	void setParamenters(Object[] params);
+	void setParameters(Object[] params);
 
 	void invoke() throws IllegalAccessException, IllegalArgumentException, InvocationTargetException;
 
-	boolean isYesOptionConfirmation();
+	boolean isYesOption();
 
-	String yesOptionConfitmation() throws IllegalAccessException, IllegalArgumentException, InvocationTargetException;
+	String yesOption() throws IllegalAccessException, IllegalArgumentException, InvocationTargetException;
 
 	void clear();
 

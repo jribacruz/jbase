@@ -8,10 +8,19 @@ import java.lang.annotation.Target;
 import javax.enterprise.util.Nonbinding;
 import javax.interceptor.InterceptorBinding;
 
+/**
+ * 
+ * @author jcruz
+ *
+ */
 @InterceptorBinding
 @Retention(RetentionPolicy.RUNTIME)
 @Target({ ElementType.TYPE, ElementType.METHOD })
-public @interface Confirm {
+public @interface ConfirmAction {
+	/**
+	 * 
+	 * @return
+	 */
 	@Nonbinding
 	String value();
 }

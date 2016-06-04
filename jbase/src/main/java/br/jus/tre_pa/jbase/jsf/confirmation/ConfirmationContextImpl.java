@@ -21,9 +21,9 @@ public class ConfirmationContextImpl implements ConfirmationContext {
 
 	private Object[] params;
 
-	private boolean yesOptionConfirmation;
+	private boolean yesOption;
 
-	private String message;
+	private String messageConfirmation;
 
 	@Override
 	public void setTarget(Object target) {
@@ -31,7 +31,7 @@ public class ConfirmationContextImpl implements ConfirmationContext {
 	}
 
 	@Override
-	public void setParamenters(Object[] params) {
+	public void setParameters(Object[] params) {
 		this.params = params;
 	}
 
@@ -41,22 +41,20 @@ public class ConfirmationContextImpl implements ConfirmationContext {
 	}
 
 	@Override
-	public boolean isYesOptionConfirmation() {
-		return this.yesOptionConfirmation;
+	public boolean isYesOption() {
+		return this.yesOption;
 	}
 
 	@Override
-	public String yesOptionConfitmation() throws IllegalAccessException, IllegalArgumentException, InvocationTargetException {
-		System.out.println("Invocando Método: Inicio");
-		this.yesOptionConfirmation = true;
+	public String yesOption() throws IllegalAccessException, IllegalArgumentException, InvocationTargetException {
+		this.yesOption = true;
 		invoke();
-		System.out.println("Invocando Método: Fim");
 		return null;
 	}
 
 	@Override
 	public void clear() {
-		this.yesOptionConfirmation = false;
+		this.yesOption = false;
 		this.method = null;
 		this.target = null;
 		this.params = null;
@@ -68,13 +66,13 @@ public class ConfirmationContextImpl implements ConfirmationContext {
 	}
 
 	@Override
-	public void setMessage(String message) {
-		this.message = message;
+	public void setMessageConfirmation(String message) {
+		this.messageConfirmation = message;
 	}
 
 	@Override
-	public String getMessage() {
-		return this.message;
+	public String getMessageConfirmation() {
+		return this.messageConfirmation;
 	}
 
 }

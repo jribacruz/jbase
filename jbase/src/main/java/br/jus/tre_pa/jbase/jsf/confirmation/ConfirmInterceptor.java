@@ -10,7 +10,7 @@ import javax.interceptor.InvocationContext;
 import br.jus.tre_pa.jbase.jsf.workflow.context.UIService;
 
 @Interceptor
-@Confirm(value = "")
+@ConfirmAction(value = "")
 public class ConfirmInterceptor implements Serializable {
 
 	/**
@@ -27,13 +27,13 @@ public class ConfirmInterceptor implements Serializable {
 	@AroundInvoke
 	public Object invoke(InvocationContext ic) throws Exception {
 		Object ret = null;
-		if (confirmationContext.isYesOptionConfirmation()) {
+		if (confirmationContext.isYesOption()) {
 			return ic.proceed();
 		}
-		confirmationContext.setMessage(ic.getMethod().getAnnotation(Confirm.class).value());
+		confirmationContext.setMessageConfirmation(ic.getMethod().getAnnotation(ConfirmAction.class).value());
 		confirmationContext.setMethod(ic.getMethod());
 		confirmationContext.setTarget(ic.getTarget());
-		confirmationContext.setParamenters(ic.getParameters());
+		confirmationContext.setParameters(ic.getParameters());
 		uiservice.update("confirm_form_id", "confirm_body_id");
 		uiservice.show("confirm_wvar");
 		return ret;
