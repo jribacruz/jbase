@@ -11,7 +11,7 @@ import br.jus.tre_pa.jbase.jsf.workflow.context.UIService;
 
 @Interceptor
 @ConfirmAction(value = "")
-public class ConfirmInterceptor implements Serializable {
+public class ConfirmActionInterceptor implements Serializable {
 
 	/**
 	 * 
