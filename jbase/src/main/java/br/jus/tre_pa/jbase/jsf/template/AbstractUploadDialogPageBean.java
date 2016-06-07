@@ -14,36 +14,31 @@ import br.gov.frameworkdemoiselle.util.Reflections;
 import br.jus.tre_pa.jbase.jsf.workflow.annotation.Hide;
 import br.jus.tre_pa.jbase.jsf.workflow.annotation.UpdateBody;
 
-public abstract class AbstractUploadDialogPageBean<T, I> implements Serializable {
+public abstract class AbstractUploadDialogPageBean<T, R extends Uploadable<T, R>> implements Serializable {
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
 
-	private T bean;
+	private T parentBean;
+
+	private R selectedBean;
 
 	private Class<T> beanClass;
+
+	private Class<R> selectedBeanClass;
 
 	/**
 	 * implementação deve constar a anotation @UIAction
 	 */
 	public abstract String load(Long id);
 
+	public abstract String load(T parentBean);
+
 	/**
 	 * implementação deve constar a anotation @Hide
 	 */
 	public abstract String update();
 
-	protected abstract List<I> handleResultList();
-
-	protected abstract I prepareUpload(FileUploadEvent fileUploaded);
-
-	protected abstract byte[] getByteContent(I doc);
-
-	protected abstract String getTypeContent(I doc);
-
-	protected abstract String getNameContent(I doc);
+	protected abstract List<R> handleResultList();
 
 	@Hide
 	public void cancel() {
@@ -51,25 +46,47 @@ public abstract class AbstractUploadDialogPageBean<T, I> implements Serializable
 	}
 
 	@UpdateBody
-	public String delete(T doc) {
+	public String delete(R doc) {
 		handleResultList().remove(doc);
 		return null;
 	}
 
 	@UpdateBody
 	public String upload(FileUploadEvent fileUploaded) {
-		I doc = prepareUpload(fileUploaded);
+		R doc = getSelectedBean();
+		doc = doc.prepareUpload(fileUploaded, parentBean);
 		handleResultList().add(doc);
 		return null;
 	}
 
-	public StreamedContent prepareDownload(I doc) {
-		InputStream stream = new ByteArrayInputStream(getByteContent(doc));
-		return new DefaultStreamedContent(stream, getTypeContent(doc), getNameContent(doc));
+	public StreamedContent download(R doc) {
+		InputStream stream = new ByteArrayInputStream(doc.getByteContent());
+		return new DefaultStreamedContent(stream, doc.getTypeContent(), doc.getNameContent());
 	}
 
-	public List<I> getResultList() {
+	public List<R> getResultList() {
 		return handleResultList();
+	}
+
+	protected void setParentBean(T parentBean) {
+		this.parentBean = parentBean;
+		// TODO contornar problemas de lazy exception.
+		List<R> temp = new ArrayList<R>(handleResultList());
+		handleResultList().clear();
+		handleResultList().addAll(temp);
+	}
+
+	/**
+	 * 
+	 * -- Instanciação das classes genéricas --
+	 * 
+	 */
+
+	protected T getParentBean() {
+		if (parentBean == null) {
+			parentBean = Reflections.instantiate(this.getBeanClass());
+		}
+		return parentBean;
 	}
 
 	protected Class<T> getBeanClass() {
@@ -80,19 +97,19 @@ public abstract class AbstractUploadDialogPageBean<T, I> implements Serializable
 		return this.beanClass;
 	}
 
-	protected void setBean(T bean) {
-		this.bean = bean;
-		// TODO contornar problemas de lazy exception.
-		List<I> temp = new ArrayList<I>(handleResultList());
-		handleResultList().clear();
-		handleResultList().addAll(temp);
+	protected R getSelectedBean() {
+		if (selectedBean == null) {
+			selectedBean = Reflections.instantiate(this.getSelectedBeanClass());
+		}
+		return selectedBean;
 	}
 
-	public T getBean() {
-		if (bean == null) {
-			bean = Reflections.instantiate(this.getBeanClass());
+	protected Class<R> getSelectedBeanClass() {
+		if (this.selectedBeanClass == null) {
+			this.selectedBeanClass = Reflections.getGenericTypeArgument(this.getClass(), 1);
 		}
-		return bean;
+
+		return this.selectedBeanClass;
 	}
 
 }
