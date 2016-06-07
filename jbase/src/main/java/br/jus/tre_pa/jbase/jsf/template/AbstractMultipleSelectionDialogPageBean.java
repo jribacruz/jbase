@@ -7,6 +7,7 @@ import java.util.ListIterator;
 
 import javax.inject.Inject;
 
+import org.hibernate.Hibernate;
 import org.primefaces.model.DualListModel;
 import org.slf4j.Logger;
 
@@ -60,6 +61,8 @@ public abstract class AbstractMultipleSelectionDialogPageBean<T, R> implements S
 	 * @param bean
 	 */
 	protected abstract void onCancelBean(T bean);
+	
+	protected abstract void addAllToTarget(List<R> selectedTargetList); 
 
 	@Show
 	@UpdateHeader
@@ -123,14 +126,14 @@ public abstract class AbstractMultipleSelectionDialogPageBean<T, R> implements S
 		model.getTarget().remove(item);
 		model.getSource().add(item);
 	}
-	
+
 	@UpdateBody
 	public String selectAll() {
 		model.getTarget().addAll(model.getSource());
 		model.getSource().clear();
 		return null;
 	}
-	
+
 	@UpdateBody
 	public String deselectAll() {
 		model.getSource().addAll(model.getTarget());
@@ -142,13 +145,18 @@ public abstract class AbstractMultipleSelectionDialogPageBean<T, R> implements S
 	 * 
 	 */
 	private void addSelectedsToBean() {
-		ListIterator<R> iter = model.getTarget().listIterator();
-		while (iter.hasNext()) {
-			R item = iter.next();
-			if (!handleTarget().contains(item)) {
-				handleTarget().add(item);
-			}
+		if (handleTarget().size() > 0) {
+			ListIterator<R> iter = model.getTarget().listIterator();
+			while (iter.hasNext()) {
+				R item = iter.next();
+				if (!handleTarget().contains(item)) {
+					handleTarget().add(item);
+				}
+			} 
+			return;
 		}
+		addAllToTarget(model.getTarget());
+		
 	}
 
 	/**
@@ -163,7 +171,7 @@ public abstract class AbstractMultipleSelectionDialogPageBean<T, R> implements S
 					iter.remove();
 					log.debug("[removeDeselectedsFromBean] Item removido: {}", item);
 				}
-			} 
+			}
 		}
 	}
 
