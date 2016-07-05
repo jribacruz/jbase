@@ -1,0 +1,47 @@
+/* ICONE PAGINADOR FIRST */
+.ui-paginator-first .ui-icon-seek-first {
+	background-image: url("page-first.png.jsf?ln=jbase/images");
+	background-position: center center;
+}
+/* ICONE PAGINADOR PREV */
+.ui-paginator-prev .ui-icon-seek-prev {
+	background-image: url("page-prev.png.jsf?ln=jbase/images");
+	background-position: center center;
+}
+/* ICONE PAGINADOR NEXT */
+.ui-paginator-next .ui-icon-seek-next {
+	background-image: url("page-next.png.jsf?ln=jbase/images");
+	background-position: center center;
+}
+/* ICONE PAGINADOR END */
+.ui-paginator-last .ui-icon-seek-end {
+	background-image: url("page-last.png.jsf?ln=jbase/images");
+	background-position: center center;
+}
+
+.ui-datatable thead th {
+	border-bottom: 0px !important;
+	border-top: 1px solid #ddd !important;
+	font-weight: 500 !important;
+	text-align: left !important;
+}
+
+.ui-datatable .ui-datatable-data td {
+    border-bottom: 1px solid #f1f1f1 !important;
+    padding-bottom: 5px;
+    padding-right: 0;
+    padding-top: 5px;
+}
+
+.ui-datatable .ui-datatable-data td, .ui-datatable .ui-datatable-data-empty td {
+    border: 0 none !important;
+}
+
+
+.ui-datatable .ui-state-default, .ui-datatable .ui-widget-content .ui-state-default, .ui-datatable .ui-widget-header .ui-state-default {
+	background-image: none;
+	background-color: #f9f9f9;
+	border: 1px solid #d3d3d3;
+	color: #000;
+	font-weight: normal;
+}
