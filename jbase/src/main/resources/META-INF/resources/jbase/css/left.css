@@ -1,0 +1,24 @@
+@CHARSET "UTF-8";
+
+#left_body_id a.menu-item {
+	border-color: rgb(235, 235, 235);
+	border-style: none none solid;
+	border-width: 0 0 1px;
+	color: rgb(85, 85, 85);
+	display: block;
+	font-size: 13px;
+	font-weight: 600;
+	padding-bottom: 15px;
+	padding-top: 16px;
+	text-decoration: none;
+	text-indent: 45px;
+	text-shadow: 0 1px 0 rgb(255, 255, 255);
+	text-transform: uppercase;
+	margin-left: -20px;
+    overflow-x: hidden;
+    white-space: pre;
+}
+
+#left_body_id a.menu-item:HOVER {
+	background-color: #e1e1e1;
+}
