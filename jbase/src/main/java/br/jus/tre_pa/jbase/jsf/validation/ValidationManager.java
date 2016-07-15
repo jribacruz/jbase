@@ -13,6 +13,8 @@ public interface ValidationManager extends Serializable {
 	 * 
 	 * @param bean
 	 */
-	<T> void validate(T bean);
+	void validate(Object... beans);
+
+	void validate(String validatorGroup, Object... beans);
 
 }
