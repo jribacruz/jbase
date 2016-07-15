@@ -61,8 +61,8 @@ public abstract class AbstractMultipleSelectionDialogPageBean<T, R> implements S
 	 * @param bean
 	 */
 	protected abstract void onCancelBean(T bean);
-	
-	protected abstract void addAllToTarget(List<R> selectedTargetList); 
+
+	protected abstract void addAllToTarget(List<R> selectedTargetList);
 
 	@Show
 	@UpdateHeader
@@ -152,11 +152,10 @@ public abstract class AbstractMultipleSelectionDialogPageBean<T, R> implements S
 				if (!handleTarget().contains(item)) {
 					handleTarget().add(item);
 				}
-			} 
+			}
 			return;
 		}
-		addAllToTarget(model.getTarget());
-		
+		addAllToTarget(new ArrayList<R>(model.getTarget()));
 	}
 
 	/**
