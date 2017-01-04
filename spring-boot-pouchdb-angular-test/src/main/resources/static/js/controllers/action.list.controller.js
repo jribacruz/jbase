@@ -36,6 +36,13 @@
 					self.actions = response.rows;
 				});
 			});
+			pouchdbSV.db.changes({
+				live : true,
+				include_docs : true
+			}).on('change', function(change) {
+				console.log('Alterações realizadas');
+			}).on('complete', function(info) {
+			})
 		}
 
 		function push() {
@@ -75,13 +82,12 @@
 				}
 			});
 		}
-		
-		
-		$rootScope.$on('action.edit.save', function(event, data) {
-			console.log('action.edit.save');
-			console.log(data);
-			self.actions.push(data);
-		})
+
+		/*
+		 * $rootScope.$on('action.edit.save', function(event, data) {
+		 * console.log('action.edit.save'); console.log(data);
+		 * self.actions.push(data); })
+		 */
 
 	}
 })();

@@ -31,7 +31,7 @@
 					return console.log(err);
 				}
 				$mdDialog.hide();
-				$rootScope.$emit('action.edit.save', self.doc);
+				//$rootScope.$emit('action.edit.save', self.doc);
 			})
 		}
 
