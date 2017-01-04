@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<groups xmlns="http://www.isdc.ro/wro" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.isdc.ro/wro wro.xsd">
+
+	<group name="app">
+		<js minimize="true">/js/app.module.js</js>
+		<js minimize="true">/js/services/*.js</js>
+		<js minimize="true">/js/controllers/*.js</js>
+	</group>
+
+	<group name="global">
+		<js minimize="false">classpath:META-INF/resources/webjars/angularjs/1.6.0/angular.min.js</js>
+		<js minimize="false">classpath:META-INF/resources/webjars/angularjs/1.6.0/angular-resource.min.js</js>
+		<js minimize="false">classpath:META-INF/resources/webjars/angularjs/1.6.0/angular-animate.min.js</js>
+		<js minimize="false">classpath:META-INF/resources/webjars/angularjs/1.6.0/angular-aria.min.js</js>
+		<css minimize="false">classpath:META-INF/resources/webjars/angular-material/1.1.1/angular-material.min.css</css>
+		<js minimize="false">classpath:META-INF/resources/webjars/angular-material/1.1.1/angular-material.min.js</js>
+		<js minimize="false">classpath:META-INF/resources/webjars/angular-material/1.1.1/angular-material.min.js</js>
+		<group-ref>app</group-ref>
+	</group>
+</groups>
