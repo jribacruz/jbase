@@ -24,11 +24,26 @@
 		var service = {
 			db : db,
 			pull : pull,
-			push : push
+			push : push,
+			newID, newID
 		};
 
 		function pull() {
 			PouchDB.replicate(db, options.remotedb)
+				.on('complete', function(info) {
+					var toast = $mdToast.simple()
+				      				textContent('Dados enviados com sucesso.');
+					$mdToast.show(toast);
+				})
+				.on('error', function(info) {
+					var toast = $mdToast.simple()
+				      				textContent('Erro ao enviar dados.');
+					$mdToast.show(toast);
+				});
+		}
+
+		function push() {
+			PouchDB.replicate(options.remotedb, db)
 				.on('complete', function(info) {
 					var toast = $mdToast.simple()
 				      				textContent('Dados baixados com sucesso.');
@@ -40,9 +55,9 @@
 					$mdToast.show(toast);
 				});
 		}
-
-		function push() {
-
+		
+		function newID() {
+			return Math.random().toString(36).substr(2, 9);
 		}
 
 		return service;
