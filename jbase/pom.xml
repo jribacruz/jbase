@@ -11,9 +11,9 @@
 	<packaging>jar</packaging>
 	<version>1.8.7</version>
 
-	<name></name>
-	<description></description>
-	<url></url>
+	<name/>
+	<description/>
+	<url/>
 
 	<parent>
 		<groupId>br.gov.frameworkdemoiselle</groupId>
@@ -86,7 +86,7 @@
 		<dependency>
 			<groupId>com.google.guava</groupId>
 			<artifactId>guava</artifactId>
-			<version>11.0.2</version>
+			<version>32.0.0-android</version>
 		</dependency>
 		<!-- COMMONS BEANS -->
 		<dependency>
